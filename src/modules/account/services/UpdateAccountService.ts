@@ -3,7 +3,10 @@ import type { UpdateAccountDTO } from "../dtos/updateAccountDTO.ts";
 import type { IAccountRepository } from "../repositories/IAccountRepository.ts";
 
 export class UpdateAccountService {
-  constructor(private accountRepository: IAccountRepository) {}
+  private accountRepository: IAccountRepository;
+  constructor(accountRepository: IAccountRepository) {
+    this.accountRepository = accountRepository;
+  }
 
   async updateAccount(id: string, data: UpdateAccountDTO): Promise<Account> {
     const accountExists = await this.accountRepository.findById(id);

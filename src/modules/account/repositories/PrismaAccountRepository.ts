@@ -8,7 +8,11 @@ import type {
 } from "./IAccountRepository.ts";
 
 export class PrismaAccountRepository implements IAccountRepository {
-  constructor(private prisma: PrismaClient) {}
+  private prisma: PrismaClient;
+
+  constructor(prisma: PrismaClient) {
+    this.prisma = prisma;
+  }
 
   async create(data: CreateAccountData): Promise<Account> {
     const account = await this.prisma.account.create({

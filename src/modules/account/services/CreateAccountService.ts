@@ -5,7 +5,10 @@ import type { IAccountRepository } from "../repositories/IAccountRepository.ts";
 import bcrypt from "bcrypt";
 
 export class CreateAccountService {
-  constructor(private accountRepository: IAccountRepository) {}
+  private accountRepository: IAccountRepository;
+  constructor(accountRepository: IAccountRepository) {
+    this.accountRepository = accountRepository;
+  }
 
   async createAccount(data: CreateAccountDTO): Promise<Account> {
     const accountExists = await this.accountRepository.findByEmail(data.email);

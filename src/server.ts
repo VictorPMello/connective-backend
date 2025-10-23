@@ -12,6 +12,10 @@ import {
 
 import { env } from "./config/env.ts";
 
+import { errorHandler } from "./middlewares/errorHandler.ts";
+
+import { accountRoutes } from "./modules/account/routes.ts";
+
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.register(fastifyHelmet, {
@@ -30,20 +34,12 @@ app.register(fastifyMultipart);
 app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
 
+app.setErrorHandler(errorHandler);
+
+app.register(accountRoutes);
+
 app.get("/health", async () => {
   return { status: "OK", timestamp: new Date().toISOString() };
-});
-
-app.setErrorHandler((error, request, reply) => {
-  console.error(error);
-
-  if (error.validation) {
-    return reply
-      .status(400)
-      .send({ error: "Validation Error", issues: error.validation });
-  }
-
-  return reply.status(500).send({ error: "Internal Server Error" });
 });
 
 const signals = ["SIGINT", "SIGTERM"];
