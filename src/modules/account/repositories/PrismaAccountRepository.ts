@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
 import type {
   IAccountRepository,
   Account,
@@ -12,13 +11,11 @@ export class PrismaAccountRepository implements IAccountRepository {
   constructor(private prisma: PrismaClient) {}
 
   async create(data: CreateAccountData): Promise<Account> {
-    const hashedPassword = await bcrypt.hash(data.password, 10);
-
     const account = await this.prisma.account.create({
       data: {
         name: data.name,
         email: data.email,
-        password: hashedPassword,
+        password: data.password,
         plan: data.plan || "FREE",
         maxProjects: data.maxProjects || 3,
         maxClients: data.maxClients || 10,
@@ -97,13 +94,9 @@ export class PrismaAccountRepository implements IAccountRepository {
   }
 
   async UpdatePasswordAccount(id: string, password: string): Promise<void> {
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     await this.prisma.account.update({
       where: { id },
-      data: {
-        password: hashedPassword,
-      },
+      data: { password },
     });
   }
 

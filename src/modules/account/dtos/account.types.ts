@@ -1,3 +1,5 @@
+export type PlanType = "FREE" | "BASIC" | "PROFESSIONAL" | "ENTERPRISE";
+
 export interface Account {
   id: string;
   name: string;
@@ -11,11 +13,4 @@ export interface Account {
   lastLoginAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
-}
-
-export enum PlanType {
-  FREE = "FREE",
-  BASIC = "BASIC",
-  PROFESSIONAL = "PROFESSIONAL",
-  ENTERPRISE = "ENTERPRISE",
 }
