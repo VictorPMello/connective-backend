@@ -35,3 +35,45 @@ Content-Type: application/json
 # @name getAccountById
 
 GET {{baseUrl}}/account/{{id}} HTTP/1.1
+
+
+### 
+
+# PUT - Update account
+
+# @name updateAccount
+
+PUT {{baseUrl}}/account/{{id}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "victor_updated@conective.com",
+  "maxClients": 20,
+  "maxProjects": 5,
+  "name": "Victor Updated",
+  "password": "newpassword123",
+  "plan": "BASIC"
+}
+
+
+### 
+
+# PATCH - Update last login
+
+# @name updateLastLogin
+
+PATCH {{baseUrl}}/account/{{id}}/last-login HTTP/1.1
+
+
+### 
+
+# PATCH - Update password
+
+# @name updatePassword
+
+PATCH {{baseUrl}}/account/{{id}}/password HTTP/1.1
+Content-Type: application/json
+
+{
+  "password": "mynekjsdfkujdfoi323932883928ifds6"
+}

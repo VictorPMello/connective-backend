@@ -9,16 +9,18 @@ import type { DeleteAccountService } from "../services/DeleteAccountService.ts";
 export class AccountController {
   private createAccountService: CreateAccountService;
   private getAccountService: GetAccountService;
+  private updateAccountService: UpdateAccountService;
 
   constructor(
     createAccountService: CreateAccountService,
 
     getAccountService: GetAccountService,
-    // private updateAccountService: UpdateAccountService,
+    updateAccountService: UpdateAccountService,
     // private deleteAccountService: DeleteAccountService,
   ) {
     this.createAccountService = createAccountService;
     this.getAccountService = getAccountService;
+    this.updateAccountService = updateAccountService;
   }
 
   // CREATE
@@ -64,6 +66,62 @@ export class AccountController {
     return reply.status(200).send({
       success: true,
       data: accountWithOutPassword,
+    });
+  }
+
+  // UPDATE
+
+  async update(request: FastifyRequest, reply: FastifyReply) {
+    const paramsSchema = z.object({ id: z.string().uuid() });
+    const { id } = paramsSchema.parse(request.params);
+
+    const updateAccountSchema = z.object({
+      name: z.string().min(3),
+      email: z.string().email(),
+      password: z.string().min(6),
+      plan: z.enum(["FREE", "BASIC", "PROFESSIONAL", "ENTERPRISE"]),
+      maxProjects: z.number(),
+      maxClients: z.number(),
+    });
+
+    const data = updateAccountSchema.parse(request.body);
+
+    const { password, ...accountWithOutPassword } =
+      await this.updateAccountService.updateAccount(id, {
+        ...data,
+        updatedAt: new Date(),
+      });
+
+    return reply.status(200).send({
+      success: true,
+      message: "Account updated successfully",
+      data: accountWithOutPassword,
+    });
+  }
+
+  async updateLastLogin(request: FastifyRequest, reply: FastifyReply) {
+    const paramsSchema = z.object({ id: z.string().uuid() });
+    const { id } = paramsSchema.parse(request.params);
+    await this.updateAccountService.updateLastLoginAccount(id);
+
+    return reply.status(200).send({
+      success: true,
+      message: "Last Login updated successfully",
+    });
+  }
+
+  async updatePassword(request: FastifyRequest, reply: FastifyReply) {
+    const paramsSchema = z.object({ id: z.string().uuid() });
+    const { id } = paramsSchema.parse(request.params);
+
+    const verifyPassword = z.object({ password: z.string().min(6) });
+    const { password } = verifyPassword.parse(request.body);
+
+    await this.updateAccountService.updatePasswordAccount(id, password);
+
+    return reply.status(200).send({
+      success: true,
+      message: "Password updated successfully",
     });
   }
 }

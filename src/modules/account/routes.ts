@@ -4,6 +4,7 @@ import { PrismaAccountRepository } from "./repositories/PrismaAccountRepository.
 import { CreateAccountService } from "./services/CreateAccountService.ts";
 import { AccountController } from "./controllers/AccountController.ts";
 import { GetAccountService } from "./services/GetAccountService.ts";
+import { UpdateAccountService } from "./services/UpdateAccountService.ts";
 
 export async function accountRoutes(app: FastifyInstance) {
   const prima = new PrismaClient();
@@ -12,10 +13,12 @@ export async function accountRoutes(app: FastifyInstance) {
 
   const createAccountService = new CreateAccountService(accountRepository);
   const getAccountService = new GetAccountService(accountRepository);
+  const updateAccountService = new UpdateAccountService(accountRepository);
 
   const accountController = new AccountController(
     createAccountService,
     getAccountService,
+    updateAccountService,
   );
 
   app.post("/account", (request, reply) =>
@@ -25,4 +28,16 @@ export async function accountRoutes(app: FastifyInstance) {
   app.get("/account/:id", (request, reply) =>
     accountController.getById(request, reply),
   );
+
+  app.put("/account/:id", (request, reply) => {
+    accountController.update(request, reply);
+  });
+
+  app.patch("/account/:id/last-login", (request, reply) => {
+    accountController.updateLastLogin(request, reply);
+  });
+
+  app.patch("/account/:id/password", (request, reply) => {
+    accountController.updatePassword(request, reply);
+  });
 }

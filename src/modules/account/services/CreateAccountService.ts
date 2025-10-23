@@ -13,7 +13,7 @@ export class CreateAccountService {
   async createAccount(data: CreateAccountDTO): Promise<Account> {
     const accountExists = await this.accountRepository.findByEmail(data.email);
 
-    if (accountExists) throw new Error("Emmail already in use!");
+    if (accountExists) throw new Error("Email already in use!");
 
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
