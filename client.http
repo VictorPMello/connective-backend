@@ -5,3 +5,84 @@
 # @name healthCheck
 
 GET {{baseUrl}}/health HTTP/1.1
+
+
+### 
+
+# Account Route
+
+# @name createAccount
+
+POST {{baseUrl}}/account HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "victor222@conective.com",
+  "maxClients": 10,
+  "maxProjects": 2,
+  "name": "Victor",
+  "password": "1234567890",
+  "plan": "FREE"
+}
+
+
+### 
+
+@id = 2a40606d-76ea-46f1-a477-5404456712cd
+
+# GET account by id
+
+# @name getAccountById
+
+GET {{baseUrl}}/account/{{id}} HTTP/1.1
+
+
+### 
+
+# PUT - Update account
+
+# @name updateAccount
+
+PUT {{baseUrl}}/account/{{id}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "victor_updated@conective.com",
+  "maxClients": 20,
+  "maxProjects": 5,
+  "name": "Victor Updated",
+  "password": "newpassword123",
+  "plan": "BASIC"
+}
+
+
+### 
+
+# PATCH - Update last login
+
+# @name updateLastLogin
+
+PATCH {{baseUrl}}/account/{{id}}/last-login HTTP/1.1
+
+
+### 
+
+# PATCH - Update password
+
+# @name updatePassword
+
+PATCH {{baseUrl}}/account/{{id}}/password HTTP/1.1
+Content-Type: application/json
+
+{
+  "password": "mynekjsdfkujdfoi323932883928ifds6"
+}
+
+
+### 
+
+# DELETE - Delete account
+
+# @name deleteAccount
+
+DELETE {{baseUrl}}/account/{{id}} HTTP/1.1
