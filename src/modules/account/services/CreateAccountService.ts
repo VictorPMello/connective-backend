@@ -2,7 +2,7 @@ import type { Account } from "../dtos/account.types.ts";
 import type { CreateAccountDTO } from "../dtos/createAccountDTO.ts";
 import type { IAccountRepository } from "../repositories/IAccountRepository.ts";
 
-import bcrypt from "bcrypt";
+import { PasswordHelper } from "../../../helpers/password.helper.ts";
 
 export class CreateAccountService {
   private accountRepository: IAccountRepository;
@@ -15,7 +15,7 @@ export class CreateAccountService {
 
     if (accountExists) throw new Error("Email already in use!");
 
-    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const hashedPassword = await PasswordHelper.hash(data.password);
 
     const response = await this.accountRepository.create({
       name: data.name,

@@ -10,17 +10,19 @@ export class AccountController {
   private createAccountService: CreateAccountService;
   private getAccountService: GetAccountService;
   private updateAccountService: UpdateAccountService;
+  private deleteAccountService: DeleteAccountService;
 
   constructor(
     createAccountService: CreateAccountService,
 
     getAccountService: GetAccountService,
     updateAccountService: UpdateAccountService,
-    // private deleteAccountService: DeleteAccountService,
+    deleteAccountService: DeleteAccountService,
   ) {
     this.createAccountService = createAccountService;
     this.getAccountService = getAccountService;
     this.updateAccountService = updateAccountService;
+    this.deleteAccountService = deleteAccountService;
   }
 
   // CREATE
@@ -122,6 +124,20 @@ export class AccountController {
     return reply.status(200).send({
       success: true,
       message: "Password updated successfully",
+    });
+  }
+
+  // DELETE
+
+  async delete(request: FastifyRequest, reply: FastifyReply) {
+    const paramsSchema = z.object({ id: z.string().uuid() });
+
+    const { id } = paramsSchema.parse(request.params);
+    await this.deleteAccountService.deleteAccount(id);
+
+    return reply.status(200).send({
+      success: true,
+      message: "Account deleted successfully",
     });
   }
 }

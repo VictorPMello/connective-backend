@@ -28,7 +28,7 @@ Content-Type: application/json
 
 ### 
 
-@id = 6f4d0787-42e3-4a54-bc8e-0795d7138bee
+@id = 2a40606d-76ea-46f1-a477-5404456712cd
 
 # GET account by id
 
@@ -77,3 +77,12 @@ Content-Type: application/json
 {
   "password": "mynekjsdfkujdfoi323932883928ifds6"
 }
+
+
+### 
+
+# DELETE - Delete account
+
+# @name deleteAccount
+
+DELETE {{baseUrl}}/account/{{id}} HTTP/1.1

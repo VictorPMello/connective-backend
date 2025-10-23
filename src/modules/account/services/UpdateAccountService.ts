@@ -2,7 +2,7 @@ import type { Account } from "../dtos/account.types.ts";
 import type { UpdateAccountDTO } from "../dtos/updateAccountDTO.ts";
 import type { IAccountRepository } from "../repositories/IAccountRepository.ts";
 
-import bcrypt from "bcrypt";
+import { PasswordHelper } from "../../../helpers/password.helper.ts";
 
 export class UpdateAccountService {
   private accountRepository: IAccountRepository;
@@ -33,7 +33,7 @@ export class UpdateAccountService {
 
     if (!accountExists) throw new Error("Account not Exists!");
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await PasswordHelper.hash(password);
 
     await this.accountRepository.UpdatePasswordAccount(id, hashedPassword);
   }
