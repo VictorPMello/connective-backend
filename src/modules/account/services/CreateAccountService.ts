@@ -12,7 +12,6 @@ export class CreateAccountService {
 
   async createAccount(data: CreateAccountDTO): Promise<Account> {
     const accountExists = await this.accountRepository.findByEmail(data.email);
-
     if (accountExists) throw new Error("Email already in use!");
 
     const hashedPassword = await PasswordHelper.hash(data.password);
@@ -25,7 +24,6 @@ export class CreateAccountService {
       maxProjects: data.maxProjects || 3,
       maxClients: data.maxClients || 10,
     });
-
     return response;
   }
 }

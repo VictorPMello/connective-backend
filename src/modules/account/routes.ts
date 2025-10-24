@@ -1,8 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 import type { FastifyInstance } from "fastify";
+
 import { PrismaAccountRepository } from "./repositories/PrismaAccountRepository.ts";
-import { CreateAccountService } from "./services/CreateAccountService.ts";
 import { AccountController } from "./controllers/AccountController.ts";
+import { CreateAccountService } from "./services/CreateAccountService.ts";
 import { GetAccountService } from "./services/GetAccountService.ts";
 import { UpdateAccountService } from "./services/UpdateAccountService.ts";
 import { DeleteAccountService } from "./services/DeleteAccountService.ts";

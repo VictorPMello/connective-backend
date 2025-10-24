@@ -15,6 +15,7 @@ import { env } from "./config/env.ts";
 import { errorHandler } from "./middlewares/errorHandler.ts";
 
 import { accountRoutes } from "./modules/account/routes.ts";
+import { taskRoutes } from "./modules/tasks/routes.ts";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -36,7 +37,10 @@ app.setValidatorCompiler(validatorCompiler);
 
 app.setErrorHandler(errorHandler);
 
+// Accout Routes
 app.register(accountRoutes);
+// Task Routes
+app.register(taskRoutes);
 
 app.get("/health", async () => {
   return { status: "OK", timestamp: new Date().toISOString() };
