@@ -4,7 +4,7 @@ export type { Task, Status, Priority };
 
 export interface CreateTaskData {
   title: string;
-  description?: string;
+  description: string;
 
   status: Status;
   priority: Priority;

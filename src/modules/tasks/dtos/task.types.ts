@@ -1,26 +1,13 @@
+export type Status = "TODO" | "DOING" | "DONE";
+export type Priority = "LOW" | "MEDIUM" | "HIGH";
+
 export interface Task {
   id: string;
-
   title: string;
+  projectId: string;
   description: string;
-
   status: Status;
   priority: Priority;
-
-  projectId: string;
-
   createdAt: Date;
   updatedAt: Date;
-}
-
-export enum Status {
-  TODO = "TODO",
-  DOING = "DOING",
-  DONE = "DONE",
-}
-
-export enum Priority {
-  LOW = "LOW",
-  MEDIUM = "MEDIUM",
-  HIGH = "HIGH",
 }

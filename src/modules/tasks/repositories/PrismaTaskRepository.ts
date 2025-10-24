@@ -19,7 +19,7 @@ export class PrismaTaskRepository implements ITaskRepository {
       data: {
         projectId: data.projectId,
         title: data.title,
-        description: data.description || "",
+        description: data.description,
         status: data.status,
         priority: data.priority,
       },
