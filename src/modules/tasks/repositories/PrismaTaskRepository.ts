@@ -29,18 +29,18 @@ export class PrismaTaskRepository implements ITaskRepository {
   }
 
   async findById(id: string): Promise<Task | null> {
-    const task = this.prisma.task.findUnique({ where: { id } });
+    const task = await this.prisma.task.findUnique({ where: { id } });
 
     return task || null;
   }
 
   async findAll(projectId: string): Promise<Task[]> {
-    const tasks = this.prisma.task.findMany({ where: { projectId } });
+    const tasks = await this.prisma.task.findMany({ where: { projectId } });
     return tasks;
   }
 
   async update(id: string, data: UpdateTaskData): Promise<Task> {
-    const task = this.prisma.task.update({
+    const task = await this.prisma.task.update({
       where: { id },
       data: {
         ...data,
