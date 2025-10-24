@@ -1,0 +1,65 @@
+@baseUrl = http://localhost:3333
+@projectId = 2ee929c0-c911-462b-bdb5-3a23af80c6d8
+@taskId = 9a411ce2-8b2f-4467-b566-7a7f9175b4c6
+
+
+### 
+
+# POST - Create Task
+
+# @name createTask
+
+POST {{baseUrl}}/task HTTP/1.1
+Content-Type: application/json
+
+{
+  "description": "Criar sistema de login e registro de usuários",
+  "priority": "HIGH",
+  "projectId": "{{projectId}}",
+  "status": "TODO",
+  "title": "Implementar autenticação"
+}
+
+
+### 
+
+# GET - Get Task by ID
+
+# @name getTaskById
+
+GET {{baseUrl}}/task/{{taskId}} HTTP/1.1
+
+
+### 
+
+# GET - Get All Tasks by Project
+
+# @name getAllTasks
+
+GET {{baseUrl}}/project/tasks/{{projectId}} HTTP/1.1
+
+
+### 
+
+# PUT - Update Task
+
+# @name updateTask
+
+PUT {{baseUrl}}/task/{{taskId}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "description": "Criar sistema de login e registro com JWT tokens",
+  "priority": "HIGH",
+  "status": "DOING",
+  "title": "Implementar autenticação JWT"
+}
+
+
+### 
+
+# DELETE - Delete Task
+
+# @name deleteTask
+
+DELETE {{baseUrl}}/task/{{taskId}} HTTP/1.1

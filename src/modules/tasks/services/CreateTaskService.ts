@@ -8,7 +8,7 @@ export class CreateTaskService {
     this.taskRepository = taskRepository;
   }
 
-  async CreateTask(data: CreateTaskDTO): Promise<Task> {
+  async createTask(data: CreateTaskDTO): Promise<Task> {
     const response = await this.taskRepository.create({
       title: data.title,
       description: data.description ?? "",
