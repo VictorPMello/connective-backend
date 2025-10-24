@@ -17,7 +17,7 @@ export class PrismaProjectRepository implements IProjectRepository {
     const project = await this.prisma.project.create({
       data: {
         title: data.title,
-        description: data.description ?? "",
+        description: data.description,
         accountId: data.accountId,
       },
     });

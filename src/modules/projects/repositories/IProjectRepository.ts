@@ -4,7 +4,7 @@ export type { Project };
 
 export interface CreateProjectData {
   title: string;
-  description?: string;
+  description: string;
   accountId: string;
 }
 
