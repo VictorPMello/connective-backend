@@ -56,7 +56,7 @@ export class TaskController {
     if (!task) {
       return reply.status(404).send({
         success: false,
-        message: "Account not found",
+        message: "Task not found",
       });
     }
 
