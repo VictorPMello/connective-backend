@@ -9,9 +9,6 @@ export class CreateTaskService {
   }
 
   async CreateTask(data: CreateTaskDTO): Promise<Task> {
-    const taskExists = await this.taskRepository.findById(data.id);
-    if (taskExists) throw new Error("Task already in use!");
-
     const response = await this.taskRepository.create({
       title: data.title,
       description: data.description ?? "",
