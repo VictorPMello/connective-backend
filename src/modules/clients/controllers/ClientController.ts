@@ -92,41 +92,45 @@ export class ClientController {
     const { id } = paramsSchema.parse(request.params);
 
     const updateClientSchema = z.object({
-      name: z.string(),
-      contactPerson: z.string(),
+      name: z.string().optional(),
+      contactPerson: z.string().optional(),
 
-      email: z.string().email(),
-      phone: z.string(),
-      secundaryEmail: z.string(),
-      secundaryPhone: z.string(),
+      email: z.string().email().optional(),
+      phone: z.string().optional(),
+      secundaryEmail: z.string().optional(),
+      secundaryPhone: z.string().optional(),
 
-      status: z.enum(["ACTIVE", "NEGOTIATION", "INACTIVE", "PROSPECTUS"]),
-      category: z.enum(["BASIC", "PREMIUM", "ENTERPRISE"]),
+      status: z
+        .enum(["ACTIVE", "NEGOTIATION", "INACTIVE", "PROSPECTUS"])
+        .optional(),
+      category: z.enum(["BASIC", "PREMIUM", "ENTERPRISE"]).optional(),
 
-      manager: z.string(),
+      manager: z.string().optional(),
 
       hiringDate: z.coerce.date().optional(),
-      nextDueDate: z.coerce.date(),
-      lastContact: z.coerce.date(),
-      monthlyAmount: z.string(),
+      nextDueDate: z.coerce.date().optional(),
+      lastContact: z.coerce.date().optional(),
+      monthlyAmount: z.string().optional(),
 
       address: z.object({
-        street: z.string(),
-        number: z.string(),
-        complement: z.string(),
-        neighborhood: z.string(),
-        city: z.string(),
-        state: z.string(),
-        zipCode: z.string(),
-        country: z.string(),
+        street: z.string().optional(),
+        number: z.string().optional(),
+        complement: z.string().optional(),
+        neighborhood: z.string().optional(),
+        city: z.string().optional(),
+        state: z.string().optional(),
+        zipCode: z.string().optional(),
+        country: z.string().optional(),
       }),
-      cnpj: z.string(),
-      cpf: z.string(),
-      website: z.string(),
-      linkedin: z.string(),
+      cnpj: z.string().optional(),
+      cpf: z.string().optional(),
+      website: z.string().optional(),
+      linkedin: z.string().optional(),
 
-      paymentMethod: z.enum(["CREDIT_CARD", "BOLETO", "PIX", "TRANSFER"]),
-      notes: z.string(),
+      paymentMethod: z
+        .enum(["CREDIT_CARD", "BOLETO", "PIX", "TRANSFER"])
+        .optional(),
+      notes: z.string().optional(),
     });
 
     const data = updateClientSchema.parse(request.body);
