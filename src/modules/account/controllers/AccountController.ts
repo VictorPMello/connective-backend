@@ -78,12 +78,12 @@ export class AccountController {
     const { id } = paramsSchema.parse(request.params);
 
     const updateAccountSchema = z.object({
-      name: z.string().min(3),
-      email: z.string().email(),
-      password: z.string().min(6),
-      plan: z.enum(["FREE", "BASIC", "PROFESSIONAL", "ENTERPRISE"]),
-      maxProjects: z.number(),
-      maxClients: z.number(),
+      name: z.string().min(3).optional(),
+      email: z.string().email().optional(),
+      password: z.string().min(6).optional(),
+      plan: z.enum(["FREE", "BASIC", "PROFESSIONAL", "ENTERPRISE"]).optional(),
+      maxProjects: z.number().optional(),
+      maxClients: z.number().optional(),
     });
 
     const data = updateAccountSchema.parse(request.body);

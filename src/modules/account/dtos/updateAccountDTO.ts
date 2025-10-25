@@ -1,16 +1,16 @@
 import type { PlanType } from "./account.types.ts";
 
 export interface UpdateAccountDTO {
-  name?: string;
-  email?: string;
+  name?: string | undefined;
+  email?: string | undefined;
 
-  plan?: PlanType;
-  planExpiresAt?: Date;
+  plan?: PlanType | undefined;
+  planExpiresAt?: Date | undefined;
 
-  maxProjects?: number;
-  maxClients?: number;
+  maxProjects?: number | undefined;
+  maxClients?: number | undefined;
 
-  isActive?: boolean;
+  isActive?: boolean | undefined;
 
   updatedAt: Date;
 }
