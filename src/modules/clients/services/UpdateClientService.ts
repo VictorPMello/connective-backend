@@ -9,6 +9,9 @@ export class UpdateClientService {
   }
 
   async updateClient(id: string, data: UpdateClientDTO): Promise<Client> {
+    const clientExists = await this.clientRepository.findById(id);
+    if (!clientExists) throw new Error("Client not Exists!");
+
     const client = await this.clientRepository.update(id, data);
     return client;
   }

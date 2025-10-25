@@ -57,6 +57,7 @@ export class PrismaClientRepository implements IClientRepository {
       where: { id },
       data: {
         ...clientData,
+
         updatedAt: new Date(),
         ...(address && {
           address: {

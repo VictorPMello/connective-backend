@@ -6,8 +6,6 @@ import type {
 import type { AddressInput } from "./client.types.ts";
 
 export interface UpdateClientDTO {
-  updatedAt: Date;
-
   name?: string;
   contactPerson?: string;
 
@@ -21,7 +19,7 @@ export interface UpdateClientDTO {
 
   manager?: string;
 
-  hiringDate?: Date;
+  hiringDate?: Date | undefined;
   nextDueDate?: Date;
   lastContact?: Date;
   monthlyAmount?: string;
@@ -36,4 +34,5 @@ export interface UpdateClientDTO {
   paymentMethod?: PaymentMethod;
 
   notes?: string;
+  updatedAt: Date;
 }

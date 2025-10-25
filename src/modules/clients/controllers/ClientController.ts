@@ -81,6 +81,7 @@ export class ClientController {
     return reply.status(200).send({
       success: true,
       data: clients,
+      total: clients.length,
     });
   }
 
@@ -104,7 +105,7 @@ export class ClientController {
 
       manager: z.string(),
 
-      hiringDate: z.coerce.date(),
+      hiringDate: z.coerce.date().optional(),
       nextDueDate: z.coerce.date(),
       lastContact: z.coerce.date(),
       monthlyAmount: z.string(),
