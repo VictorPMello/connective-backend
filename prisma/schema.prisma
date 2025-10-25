@@ -137,7 +137,8 @@ model Client {
   lastContact   DateTime?
   monthlyAmount String?
 
-  address Json?
+  addressId String?  @unique
+  address   Address? @relation(fields: [addressId], references: [id], onDelete: Cascade)
 
   cnpj     String?
   cpf      String?
@@ -178,6 +179,23 @@ enum PaymentMethod {
   BOLETO
   PIX
   TRANSFER
+
+  @@schema("public")
+}
+
+model Address {
+  id String @id @default(uuid())
+
+  street       String?
+  number       String?
+  complement   String?
+  neighborhood String?
+  city         String?
+  state        String?
+  zipCode      String?
+  country      String?
+
+  client Client?
 
   @@schema("public")
 }

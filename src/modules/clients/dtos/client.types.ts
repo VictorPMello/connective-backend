@@ -29,7 +29,7 @@ export interface Task {
   monthlyAmount?: string;
 
   // Address
-  address?: Address;
+  address?: AddressInput;
 
   // Commercial information
   cnpj?: string;
@@ -44,7 +44,7 @@ export interface Task {
   notes?: string;
 }
 
-export interface Address {
+export interface AddressInput {
   street?: string;
   number?: string;
   complement?: string;
