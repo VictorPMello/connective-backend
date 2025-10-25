@@ -85,10 +85,10 @@ export class TaskController {
     const { id } = paramsSchema.parse(request.params);
 
     const updateTaskSchema = z.object({
-      title: z.string().min(3),
-      description: z.string(),
-      status: z.enum(["TODO", "DOING", "DONE"]),
-      priority: z.enum(["LOW", "MEDIUM", "HIGH"]),
+      title: z.string().min(3).optional(),
+      description: z.string().optional(),
+      status: z.enum(["TODO", "DOING", "DONE"]).optional(),
+      priority: z.enum(["LOW", "MEDIUM", "HIGH"]).optional(),
     });
 
     const data = updateTaskSchema.parse(request.body);
