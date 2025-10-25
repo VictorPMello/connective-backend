@@ -1,4 +1,10 @@
-export interface Task {
+export type ClientStatus = "ACTIVE" | "NEGOTIATION" | "INACTIVE" | "PROSPECTUS";
+
+export type ClientCategory = "BASIC" | "PREMIUM" | "ENTERPRISE";
+
+export type PaymentMethod = "CREDIT_CARD" | "BOLETO" | "PIX" | "TRANSFER";
+
+export interface Client {
   id: string;
 
   // Metadata
@@ -12,8 +18,8 @@ export interface Task {
   // Contact
   email: string;
   phone: string;
-  secundaryEmail?: string;
-  secundaryPhone?: string;
+  secundaryEmail?: string | null;
+  secundaryPhone?: string | null;
 
   // Status and category
   status: ClientStatus;
@@ -24,24 +30,24 @@ export interface Task {
 
   // Dates and values
   hiringDate: Date;
-  nextDueDate?: Date;
-  lastContact?: Date;
-  monthlyAmount?: string;
+  nextDueDate?: Date | null;
+  lastContact?: Date | null;
+  monthlyAmount?: string | null;
 
   // Address
-  address?: AddressInput;
+  address?: AddressInput | null;
 
   // Commercial information
-  cnpj?: string;
-  cpf?: string;
-  website?: string;
-  linkedin?: string;
+  cnpj?: string | null;
+  cpf?: string | null;
+  website?: string | null;
+  linkedin?: string | null;
 
   // Payment
-  paymentMethod?: PaymentMethod;
+  paymentMethod?: PaymentMethod | null;
 
   // Notes
-  notes?: string;
+  notes?: string | null;
 }
 
 export interface AddressInput {
@@ -53,24 +59,4 @@ export interface AddressInput {
   state?: string;
   zipCode?: string;
   country?: string;
-}
-
-export enum ClientStatus {
-  ACTIVE = "active",
-  NEGOTIATION = "negotiation",
-  INACTIVE = "inactive",
-  PROSPECTUS = "prospectus",
-}
-
-export enum ClientCategory {
-  BASIC = "basic",
-  PREMIUM = "premium",
-  ENTERPRISE = "enterprise",
-}
-
-export enum PaymentMethod {
-  CREDIT_CARD = "credit_card",
-  BOLETO = "boleto",
-  PIX = "pix",
-  TRANSFER = "transfer",
 }
