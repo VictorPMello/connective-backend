@@ -51,12 +51,12 @@ export interface Client {
 }
 
 export interface AddressInput {
-  street?: string;
-  number?: string;
-  complement?: string;
-  neighborhood?: string;
-  city?: string;
-  state?: string;
-  zipCode?: string;
-  country?: string;
+  street?: string | undefined;
+  number?: string | undefined;
+  complement?: string | undefined;
+  neighborhood?: string | undefined;
+  city?: string | undefined;
+  state?: string | undefined;
+  zipCode?: string | undefined;
+  country?: string | undefined;
 }

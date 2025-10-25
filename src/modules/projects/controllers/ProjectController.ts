@@ -71,8 +71,8 @@ export class ProjectController {
     const { id } = paramsSchema.parse(request.params);
 
     const updateProjectSchema = z.object({
-      title: z.string(),
-      description: z.string(),
+      title: z.string().optional(),
+      description: z.string().optional(),
     });
 
     const data = updateProjectSchema.parse(request.body);

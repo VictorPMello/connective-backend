@@ -6,33 +6,33 @@ import type {
 import type { AddressInput } from "./client.types.ts";
 
 export interface UpdateClientDTO {
-  name?: string;
-  contactPerson?: string;
+  name?: string | undefined;
+  contactPerson?: string | undefined;
 
-  email?: string;
-  phone?: string;
-  secundaryEmail?: string;
-  secundaryPhone?: string;
+  email?: string | undefined;
+  phone?: string | undefined;
+  secundaryEmail?: string | undefined;
+  secundaryPhone?: string | undefined;
 
-  status?: ClientStatus;
-  category?: ClientCategory;
+  status?: ClientStatus | undefined;
+  category?: ClientCategory | undefined;
 
-  manager?: string;
+  manager?: string | undefined;
 
   hiringDate?: Date | undefined;
-  nextDueDate?: Date;
-  lastContact?: Date;
-  monthlyAmount?: string;
+  nextDueDate?: Date | undefined;
+  lastContact?: Date | undefined;
+  monthlyAmount?: string | undefined;
 
-  address?: AddressInput;
+  address?: AddressInput | undefined;
 
-  cnpj?: string;
-  cpf?: string;
-  website?: string;
-  linkedin?: string;
+  cnpj?: string | undefined;
+  cpf?: string | undefined;
+  website?: string | undefined;
+  linkedin?: string | undefined;
 
-  paymentMethod?: PaymentMethod;
+  paymentMethod?: PaymentMethod | undefined;
 
-  notes?: string;
+  notes?: string | undefined;
   updatedAt: Date;
 }
