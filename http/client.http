@@ -1,0 +1,114 @@
+@accountId = b4809346-1fe6-43a2-bf58-1471174463d1
+@baseUrl = http://localhost:3333
+@clientId = 1aeffda6-f3cb-4e4e-835d-774ba2521dd5
+
+
+### 
+
+# POST - Create Client
+
+# @name createClient
+
+POST {{baseUrl}}/client HTTP/1.1
+Content-Type: application/json
+
+{
+  "accountId": "{{accountId}}",
+  "address": {
+    "city": "São Paulo",
+    "complement": "Sala 500",
+    "country": "Brasil",
+    "neighborhood": "Bela Vista",
+    "number": "1000",
+    "state": "SP",
+    "street": "Av. Paulista",
+    "zipCode": "01310-100"
+  },
+  "category": "PREMIUM",
+  "cnpj": "12.345.678/0001-90",
+  "contactPerson": "João Silva",
+  "email": "joao.silva@techsolutions.com",
+  "hiringDate": "2024-01-15T00:00:00.000Z",
+  "lastContact": "2024-01-20T00:00:00.000Z",
+  "linkedin": "https://linkedin.com/company/techsolutions",
+  "manager": "Maria Santos",
+  "monthlyAmount": "5000.00",
+  "name": "Empresa Tech Solutions LTDA",
+  "nextDueDate": "2024-02-15T00:00:00.000Z",
+  "notes": "Cliente prioritário. Contrato de 12 meses com suporte premium.",
+  "paymentMethod": "PIX",
+  "phone": "+55 11 98765-4321",
+  "secundaryEmail": "contato@techsolutions.com",
+  "secundaryPhone": "+55 11 3456-7890",
+  "status": "ACTIVE",
+  "website": "https://techsolutions.com"
+}
+
+
+### 
+
+# GET - Get Client by ID
+
+# @name getClientById
+
+GET {{baseUrl}}/client/{{clientId}} HTTP/1.1
+
+
+### 
+
+# GET - Get All Clients by Account
+
+# @name getAllClientsByAccount
+
+GET {{baseUrl}}/clients/{{accountId}} HTTP/1.1
+
+
+### 
+
+# PUT - Update Client
+
+# @name updateClient
+
+PUT {{baseUrl}}/client/{{clientId}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "address": {
+    "city": "",
+    "complement": "",
+    "country": "",
+    "neighborhood": "",
+    "number": "",
+    "state": "",
+    "street": "",
+    "zipCode": ""
+  },
+  "category": "ENTERPRISE",
+  "cnpj": "",
+  "contactPerson": "João Pedro Silva",
+  "cpf": "",
+  "email": "contato@techsolutions.com",
+  "hiringDate": "2024-01-01T00:00:00.000Z",
+  "lastContact": "2024-01-25T00:00:00.000Z",
+  "linkedin": "",
+  "manager": "",
+  "monthlyAmount": "7500.00",
+  "name": "Empresa Tech Solutions S.A.",
+  "nextDueDate": "2024-03-15T00:00:00.000Z",
+  "notes": "Cliente atualizado para plano Enterprise. Renovação automática ativada.",
+  "paymentMethod": "PIX",
+  "phone": "+55 11 98765-0000",
+  "secundaryEmail": "",
+  "secundaryPhone": "",
+  "status": "ACTIVE",
+  "website": ""
+}
+
+
+### 
+
+# DELETE - Delete Client (⚠️ CUIDADO: Ação irreversível!)
+
+# @name deleteClient
+
+DELETE {{baseUrl}}/client/{{clientId}} HTTP/1.1

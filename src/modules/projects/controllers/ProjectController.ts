@@ -25,6 +25,7 @@ export class ProjectController {
   }
 
   // CREATE
+
   async create(request: FastifyRequest, reply: FastifyReply) {
     const createProjectSchema = z.object({
       title: z.string(),
@@ -83,7 +84,7 @@ export class ProjectController {
 
     return reply.status(200).send({
       success: true,
-      message: "Task updated successfully",
+      message: "Project updated successfully",
       data: project,
     });
   }

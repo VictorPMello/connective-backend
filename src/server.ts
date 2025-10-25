@@ -17,6 +17,7 @@ import { errorHandler } from "./middlewares/errorHandler.ts";
 import { accountRoutes } from "./modules/account/routes.ts";
 import { taskRoutes } from "./modules/tasks/routes.ts";
 import { projectRoutes } from "./modules/projects/routes.ts";
+import { clientRoutes } from "./modules/clients/routes.ts";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -44,6 +45,8 @@ app.register(accountRoutes);
 app.register(taskRoutes);
 // Project Routes
 app.register(projectRoutes);
+// Client Routes
+app.register(clientRoutes);
 
 app.get("/health", async () => {
   return { status: "OK", timestamp: new Date().toISOString() };
