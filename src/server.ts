@@ -20,6 +20,7 @@ import { accountRoutes } from "./modules/account/routes.ts";
 import { taskRoutes } from "./modules/tasks/routes.ts";
 import { projectRoutes } from "./modules/projects/routes.ts";
 import { clientRoutes } from "./modules/clients/routes.ts";
+import { authRoutes } from "./modules/account/authRoutes.ts";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -46,7 +47,9 @@ app.setValidatorCompiler(validatorCompiler);
 
 app.setErrorHandler(errorHandler);
 
-// Accout Routes
+// Auth Routes
+app.register(authRoutes);
+// Account Routes
 app.register(accountRoutes);
 // Task Routes
 app.register(taskRoutes);
