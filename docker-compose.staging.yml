@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres-staging
+    environment:
+      POSTGRES_USER: staging_user
+      POSTGRES_PASSWORD: staging_password
+      POSTGRES_DB: staging_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - staging_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U staging_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend-staging
+    environment:
+      NODE_ENV: "staging"
+      PORT: 3000
+      DATABASE_URL: "postgresql://staging_user:staging_password@postgres:5432/staging_db"
+      JWT_SECRET: "12345678901234567890123456789012"
+      CORS_ORIGIN: "*"
+    ports:
+      - "3001:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - staging_network
+    command: ["sh", "-c", "npx prisma migrate deploy && npm start"]
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  staging_network:
+    driver: bridge

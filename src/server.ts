@@ -39,7 +39,8 @@ app.register(fastifyHelmet, {
 });
 
 app.register(fastifyCors, { origin: env.CORS_ORIGIN, credentials: true });
-app.register(fastifyRateLimit, { max: 100, timeWindow: "15 minutes" });
+app.register(fastifyRateLimit, { max: 10, timeWindow: "15 minutes" });
+console.log("✅ Rate limiter registrado");
 app.register(fastifyMultipart);
 
 app.setSerializerCompiler(serializerCompiler);
@@ -85,5 +86,7 @@ async function start() {
     process.exit(1);
   }
 }
+
+export { app };
 
 start();

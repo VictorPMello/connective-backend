@@ -27,7 +27,7 @@ export class AuthController {
 
     reply.setCookie("token", token, {
       httpOnly: true,
-      secure: env.NODE_ENV === "production",
+      secure: env.NODE_ENV === "staging" || env.NODE_ENV === "production",
       sameSite: "strict",
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
