@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import type { FastifyInstance } from "fastify";
+import { prisma } from "../../config/database.ts";
 
 import { PrismaTaskRepository } from "./repositories/PrismaTaskRepository.ts";
 import { TaskController } from "./controllers/TaskController.ts";
@@ -9,8 +9,6 @@ import { UpdateTaskService } from "./services/UpdateTaskService.ts";
 import { DeleteTaskService } from "./services/DeleteTaskService.ts";
 
 export async function taskRoutes(app: FastifyInstance) {
-  const prisma = new PrismaClient();
-
   const taskRepository = new PrismaTaskRepository(prisma);
 
   const createTaskService = new CreateTaskService(taskRepository);
