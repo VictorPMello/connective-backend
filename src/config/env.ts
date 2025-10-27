@@ -7,6 +7,8 @@ const envSchema = z.object({
 
   JWT_SECRET: z.string().min(32),
 
+  NODE_ENV: z.string(),
+
   CORS_ORIGIN: z.string().default("http://localhost:5173"),
 });
 
