@@ -3,6 +3,8 @@ import fastifyHelmet from "@fastify/helmet";
 import { fastifyCors } from "@fastify/cors";
 import fastifyRateLimit from "@fastify/rate-limit";
 import { fastifyMultipart } from "@fastify/multipart";
+import fastifyJWT from "@fastify/jwt";
+import fastifyCookie from "@fastify/cookie";
 
 import {
   serializerCompiler,
@@ -20,6 +22,11 @@ import { projectRoutes } from "./modules/projects/routes.ts";
 import { clientRoutes } from "./modules/clients/routes.ts";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
+
+// JWT
+app.register(fastifyJWT, { secret: env.JWT_SECRET, sign: { expiresIn: "7d" } });
+// COOKEIS
+app.register(fastifyCookie, { secret: env.JWT_SECRET, parseOptions: {} });
 
 app.register(fastifyHelmet, {
   contentSecurityPolicy: {
