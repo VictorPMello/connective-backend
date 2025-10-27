@@ -1,15 +1,18 @@
 import { PrismaClient } from "@prisma/client";
+import { PasswordHelper } from "../src/helpers/password.helper.ts";
 
 const prisma = new PrismaClient();
 
 async function main() {
   console.log("🌱 Iniciando seed...");
 
+  const passwordHash = await PasswordHelper.hash("testedesenha12345");
+
   const account = await prisma.account.create({
     data: {
       name: "Conta Principal",
       email: "teste@connective.com",
-      password: "$2a$10$xQZ.vQZ.vQZ.vQZ.vQZ.vQZ.vQZ.vQZ.vQZ.vQZ.vQ", // hash fake
+      password: passwordHash, // hash fake
       plan: "PROFESSIONAL",
       maxProjects: 10,
       maxClients: 50,

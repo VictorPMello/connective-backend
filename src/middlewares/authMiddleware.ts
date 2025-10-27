@@ -1,5 +1,4 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
-import { z } from "zod";
 
 export async function authMiddleware(
   request: FastifyRequest,

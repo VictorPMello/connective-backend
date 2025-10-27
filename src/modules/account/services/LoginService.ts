@@ -11,7 +11,7 @@ export class LoginService {
 
   async login(email: string, password: string): Promise<Account> {
     const account = await this.accountRepository.findByEmail(email);
-    if (!account) throw new Error("Email already in use!");
+    if (!account) throw new Error("Email or password incorrect!");
 
     if (!account.isActive) throw new Error("Account is inactive");
 

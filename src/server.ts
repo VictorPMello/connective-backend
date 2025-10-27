@@ -16,11 +16,11 @@ import { env } from "./config/env.ts";
 
 import { errorHandler } from "./middlewares/errorHandler.ts";
 
+import { authRoutes } from "./modules/account/authRoutes.ts";
 import { accountRoutes } from "./modules/account/routes.ts";
 import { taskRoutes } from "./modules/tasks/routes.ts";
 import { projectRoutes } from "./modules/projects/routes.ts";
 import { clientRoutes } from "./modules/clients/routes.ts";
-import { authRoutes } from "./modules/account/authRoutes.ts";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 

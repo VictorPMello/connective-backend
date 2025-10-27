@@ -9,7 +9,7 @@ const envSchema = z.object({
 
   NODE_ENV: z.string(),
 
-  CORS_ORIGIN: z.string().default("http://localhost:5173"),
+  CORS_ORIGIN: z.string(),
 });
 
 export const env = envSchema.parse(process.env);

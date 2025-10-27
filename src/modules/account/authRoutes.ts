@@ -1,5 +1,5 @@
 import type { FastifyInstance } from "fastify";
-import { PrismaClient } from "@prisma/client/extension";
+import { prisma } from "../../config/database.ts";
 
 import { PrismaAccountRepository } from "./repositories/PrismaAccountRepository.ts";
 import { LoginService } from "./services/LoginService.ts";
@@ -7,8 +7,7 @@ import { AuthController } from "./controllers/AuthController.ts";
 import { authMiddleware } from "../../middlewares/authMiddleware.ts";
 
 export async function authRoutes(app: FastifyInstance) {
-  const prima = new PrismaClient();
-  const accountRepository = new PrismaAccountRepository(prima);
+  const accountRepository = new PrismaAccountRepository(prisma);
   const loginService = new LoginService(accountRepository);
   const authController = new AuthController(loginService);
 

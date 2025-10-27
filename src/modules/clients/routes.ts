@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import type { FastifyInstance } from "fastify";
+import { prisma } from "../../config/database.ts";
 
 import { PrismaClientRepository } from "./repositories/PrismaClientRepository.ts";
 import { ClientController } from "./controllers/ClientController.ts";
@@ -9,8 +9,6 @@ import { UpdateClientService } from "./services/UpdateClientService.ts";
 import { DeleteClientService } from "./services/DeleteClientService.ts";
 
 export async function clientRoutes(app: FastifyInstance) {
-  const prisma = new PrismaClient();
-
   const clientRepository = new PrismaClientRepository(prisma);
 
   const createClientService = new CreateClientService(clientRepository);

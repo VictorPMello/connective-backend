@@ -47,7 +47,6 @@ export class AuthController {
 
   async logout(request: FastifyRequest, reply: FastifyReply) {
     reply.clearCookie("token", { path: "/" });
-
     return reply.status(200).send({ message: "Logout successful" });
   }
 
