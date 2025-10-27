@@ -24,7 +24,7 @@ export async function accountRoutes(app: FastifyInstance) {
     deleteAccountService,
   );
 
-  app.post("/account", (request, reply) =>
+  app.post("/auth/register", (request, reply) =>
     accountController.create(request, reply),
   );
 

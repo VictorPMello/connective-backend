@@ -1,92 +1,31 @@
-import { fastify } from "fastify";
-import fastifyHelmet from "@fastify/helmet";
-import { fastifyCors } from "@fastify/cors";
-import fastifyRateLimit from "@fastify/rate-limit";
-import { fastifyMultipart } from "@fastify/multipart";
-import fastifyJWT from "@fastify/jwt";
-import fastifyCookie from "@fastify/cookie";
-
-import {
-  serializerCompiler,
-  validatorCompiler,
-  type ZodTypeProvider,
-} from "fastify-type-provider-zod";
-
+import { buildApp } from "./app.ts";
 import { env } from "./config/env.ts";
 
-import { errorHandler } from "./middlewares/errorHandler.ts";
-
-import { authRoutes } from "./modules/account/authRoutes.ts";
-import { accountRoutes } from "./modules/account/routes.ts";
-import { taskRoutes } from "./modules/tasks/routes.ts";
-import { projectRoutes } from "./modules/projects/routes.ts";
-import { clientRoutes } from "./modules/clients/routes.ts";
-
-const app = fastify().withTypeProvider<ZodTypeProvider>();
-
-// JWT
-app.register(fastifyJWT, { secret: env.JWT_SECRET, sign: { expiresIn: "7d" } });
-// COOKEIS
-app.register(fastifyCookie, { secret: env.JWT_SECRET, parseOptions: {} });
-
-app.register(fastifyHelmet, {
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-    },
-  },
-});
-
-app.register(fastifyCors, { origin: env.CORS_ORIGIN, credentials: true });
-app.register(fastifyRateLimit, { max: 10, timeWindow: "15 minutes" });
-console.log("✅ Rate limiter registrado");
-app.register(fastifyMultipart);
-
-app.setSerializerCompiler(serializerCompiler);
-app.setValidatorCompiler(validatorCompiler);
-
-app.setErrorHandler(errorHandler);
-
-// Auth Routes
-app.register(authRoutes);
-// Account Routes
-app.register(accountRoutes);
-// Task Routes
-app.register(taskRoutes);
-// Project Routes
-app.register(projectRoutes);
-// Client Routes
-app.register(clientRoutes);
-
-app.get("/health", async () => {
-  return { status: "OK", timestamp: new Date().toISOString() };
-});
-
 const signals = ["SIGINT", "SIGTERM"];
-signals.forEach((signal) => {
-  process.on(signal, async () => {
-    try {
-      await app.close();
-      console.log("Server closed successfully");
-      process.exit(0);
-    } catch (err) {
-      console.error("Error closing server:", err);
-      process.exit(1);
-    }
-  });
-});
 
 async function start() {
   try {
-    await app.listen({ port: env.PORT, host: "0.0.0.0" });
-    console.log(`🚀 Server running on http://localhost:${env.PORT}`);
-  } catch (err) {
-    app.log.error(err);
+    const app = await buildApp();
+
+    signals.forEach((signal) => {
+      process.on(signal, async () => {
+        try {
+          await app.close();
+          console.log("Server closed successfully");
+          process.exit(0);
+        } catch (err) {
+          console.error("Error closing server:", err);
+          process.exit(1);
+        }
+      });
+    });
+
+    await app.listen({ port: env.PORT || 3333, host: "0.0.0.0" });
+    console.log(`🚀 Server running on http://localhost:${env.PORT || 3333}`);
+  } catch (error) {
+    console.error(error);
     process.exit(1);
   }
 }
-
-export { app };
 
 start();

@@ -9,7 +9,7 @@ describe("Testes de Proteção contra Brute Force (Fastify - app.inject)", () =>
   beforeAll(async () => {
     app = await build();
     await cleanDatabase();
-    await seedTestData(); // cria user1@test.com e user2@test.com conforme seedTestData()
+    await seedTestData();
   });
 
   afterAll(async () => {
@@ -19,27 +19,29 @@ describe("Testes de Proteção contra Brute Force (Fastify - app.inject)", () =>
   });
 
   test("Deve bloquear múltiplas tentativas de login falhas", async () => {
-    const attempts = 15;
+    const attempts = 11;
     let blockedCount = 0;
 
     for (let i = 0; i < attempts; i++) {
       const res = await app.inject({
         method: "POST",
         url: "/auth/login",
-        headers: { "x-forwarded-for": "192.168.1.1" },
+        headers: {
+          "content-type": "application/json",
+        },
         payload: {
-          email: "user1@test.com", // usuário criado pelo seed
-          password: `wrong-password-${i}`,
+          email: "user1@test.com",
+          password: "WrongPassword123!",
         },
       });
 
-      if (res.statusCode === 429) blockedCount++;
-
-      // pequeno delay para não sobrecarregar e simular tentativas reais
-      await new Promise((r) => setTimeout(r, 100));
+      if (res.statusCode === 429) {
+        blockedCount++;
+        console.log(`✅ Bloqueado na tentativa ${i + 1}`);
+      }
     }
 
-    // Esperamos que o mecanismo de rate limiting/lock comece a bloquear em algum ponto
+    console.log(`Total bloqueado: ${blockedCount}`);
     expect(blockedCount).toBeGreaterThan(0);
   });
 
@@ -49,6 +51,10 @@ describe("Testes de Proteção contra Brute Force (Fastify - app.inject)", () =>
       app.inject({
         method: "POST",
         url: "/auth/register",
+        headers: {
+          "x-forwarded-for": "192.168.1.100", // 👈 Mesmo IP para todas
+          "content-type": "application/json",
+        },
         payload: {
           email: `test${Math.random().toString(36).slice(2, 9)}@example.com`,
           password: "Test123!@#",
@@ -59,6 +65,13 @@ describe("Testes de Proteção contra Brute Force (Fastify - app.inject)", () =>
 
     const responses = await Promise.all(promises);
     const rateLimited = responses.filter((r) => r.statusCode === 429);
+
+    console.log(`Total de requisições: ${responses.length}`);
+    console.log(`Total bloqueado: ${rateLimited.length}`);
+    console.log(
+      `Status codes:`,
+      responses.map((r) => r.statusCode),
+    );
 
     // Deve ter limitado pelo menos algumas requisições
     expect(rateLimited.length).toBeGreaterThan(0);

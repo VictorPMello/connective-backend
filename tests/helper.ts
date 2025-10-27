@@ -1,10 +1,11 @@
 import { prisma } from "../src/config/database.ts";
-import { app } from "../src/server.ts";
+import { buildApp } from "../src/app.ts";
 import { PasswordHelper } from "../src/helpers/password.helper.ts";
 import { env } from "../src/config/env.ts";
 import jwt from "jsonwebtoken";
 
 export async function build() {
+  const app = await buildApp();
   await app.ready();
   return app;
 }
