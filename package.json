@@ -19,14 +19,7 @@
     "test:auth": "vitest run tests/security/auth-security.test.ts",
     "test:brute-force": "vitest run tests/security/brute-force.test.ts",
     "test:load": "k6 run tests/load/k6-load-test.js",
-    "test:load:staging": "API_URL=https://sua-api-staging.com k6 run tests/load/k6-load-test.js",
-    "staging:up": "docker-compose -f docker-compose.staging.yml up -d",
-    "staging:down": "docker-compose -f docker-compose.staging.yml down",
-    "staging:logs": "docker-compose -f docker-compose.staging.yml logs -f backend-staging",
-    "zap:start": "docker-compose -f docker-compose.staging.yml --profile security-test up -d zap",
-    "zap:scan": "./scripts/zap-security-scan.sh",
-    "zap:stop": "docker-compose -f docker-compose.staging.yml --profile security-test down",
-    "security:all": "npm run test:security && npm run test:load && npm run zap:scan"
+    "security:all": "npm run test:security && npm run test:load"
   },
   "repository": {
     "type": "git",

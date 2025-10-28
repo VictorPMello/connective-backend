@@ -20,7 +20,6 @@ import { accountRoutes } from "./modules/account/routes.ts";
 import { taskRoutes } from "./modules/tasks/routes.ts";
 import { projectRoutes } from "./modules/projects/routes.ts";
 import { clientRoutes } from "./modules/clients/routes.ts";
-import { email } from "zod";
 
 export async function buildApp() {
   const app = fastify().withTypeProvider<ZodTypeProvider>();
