@@ -7,6 +7,7 @@ import { CreateTaskService } from "./services/CreateTaskService.ts";
 import { GetTaskService } from "./services/GetTaskService.ts";
 import { UpdateTaskService } from "./services/UpdateTaskService.ts";
 import { DeleteTaskService } from "./services/DeleteTaskService.ts";
+import { authMiddleware } from "../../middlewares/authMiddleware.ts";
 
 export async function taskRoutes(app: FastifyInstance) {
   const taskRepository = new PrismaTaskRepository(prisma);
@@ -23,23 +24,27 @@ export async function taskRoutes(app: FastifyInstance) {
     deleteTaskService,
   );
 
-  app.post("/task", (request, reply) => {
+  app.post("/task", { preHandler: [authMiddleware] }, (request, reply) => {
     taskController.create(request, reply);
   });
 
-  app.get("/task/:id", (request, reply) =>
+  app.get("/task/:id", { preHandler: [authMiddleware] }, (request, reply) =>
     taskController.getById(request, reply),
   );
 
-  app.get("/project/tasks/:projectId", (request, reply) => {
-    taskController.getAllTasks(request, reply);
-  });
+  app.get(
+    "/project/tasks/:projectId",
+    { preHandler: [authMiddleware] },
+    (request, reply) => {
+      taskController.getAllTasks(request, reply);
+    },
+  );
 
-  app.put("/task/:id", (request, reply) =>
+  app.put("/task/:id", { preHandler: [authMiddleware] }, (request, reply) =>
     taskController.update(request, reply),
   );
 
-  app.delete("/task/:id", (request, reply) =>
+  app.delete("/task/:id", { preHandler: [authMiddleware] }, (request, reply) =>
     taskController.delete(request, reply),
   );
 }

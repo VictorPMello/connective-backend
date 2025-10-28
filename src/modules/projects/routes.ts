@@ -8,6 +8,8 @@ import { GetProjectService } from "./services/GetProjectService.ts";
 import { UpdateProjectService } from "./services/UpdateProjectService.ts";
 import { DeleteProjectService } from "./services/DeleteProjectService.ts";
 
+import { authMiddleware } from "../../middlewares/authMiddleware.ts";
+
 export async function projectRoutes(app: FastifyInstance) {
   const projectRepository = new PrismaProjectRepository(prisma);
 
@@ -23,19 +25,27 @@ export async function projectRoutes(app: FastifyInstance) {
     deleteProjectService,
   );
 
-  app.post("/project", (request, reply) =>
+  app.post("/project", { preHandler: [authMiddleware] }, (request, reply) =>
     projectController.create(request, reply),
   );
 
-  app.get("/project/:id", (request, reply) =>
+  app.get("/project/:id", { preHandler: [authMiddleware] }, (request, reply) =>
     projectController.getById(request, reply),
   );
 
-  app.put("/project/:id", (request, reply) =>
+  app.get(
+    "/projects/:accountId",
+    { preHandler: [authMiddleware] },
+    (request, reply) => projectController.getAll(request, reply),
+  );
+
+  app.put("/project/:id", { preHandler: [authMiddleware] }, (request, reply) =>
     projectController.update(request, reply),
   );
 
-  app.delete("/project/:id", (request, reply) =>
-    projectController.delete(request, reply),
+  app.delete(
+    "/project/:id",
+    { preHandler: [authMiddleware] },
+    (request, reply) => projectController.delete(request, reply),
   );
 }
