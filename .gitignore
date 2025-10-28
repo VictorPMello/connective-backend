@@ -1,4 +1,7 @@
 node_modules
+http
+prisma/migrations
+prisma/seed.ts
 # Keep environment variables out of version control
 .env
 
