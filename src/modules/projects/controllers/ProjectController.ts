@@ -68,7 +68,13 @@ export class ProjectController {
     const paramsSchema = z.object({ accountId: z.string().uuid() });
     const { accountId } = paramsSchema.parse(request.params);
 
-    const projects = await this.getProjectService.getProjectById(accountId);
+    const projects = await this.getProjectService.getAllProjects(accountId);
+
+    if (projects.length === 0)
+      return reply.status(404).send({
+        success: false,
+        message: "Projects not found",
+      });
 
     return reply.status(200).send({
       success: true,

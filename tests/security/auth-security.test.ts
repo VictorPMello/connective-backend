@@ -16,6 +16,7 @@ describe("Testes de Segurança de Autenticação", () => {
   let taskId: string;
   let clientId: string;
   let userId: string;
+  let userId2: string;
 
   beforeAll(async () => {
     app = await build();
@@ -29,12 +30,22 @@ describe("Testes de Segurança de Autenticação", () => {
     taskId = task.id;
     clientId = client.id;
     userId = user1.id;
+    userId2 = user2.id;
   });
 
   afterAll(async () => {
-    await cleanDatabase();
     await prisma.$disconnect();
+    await cleanDatabase();
     await app.close();
+  });
+
+  beforeEach(async () => {
+    await cleanDatabase();
+    const { user1, user2, project } = await seedTestData();
+
+    tokenUser1 = await generateTestToken(user1.id);
+    tokenUser2 = await generateTestToken(user2.id);
+    projectId = project.id;
   });
 
   // ----------------------
