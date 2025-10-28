@@ -52,7 +52,7 @@ describe("Testes de Proteção contra Brute Force (Fastify - app.inject)", () =>
         method: "POST",
         url: "/auth/register",
         headers: {
-          "x-forwarded-for": "192.168.1.100", // 👈 Mesmo IP para todas
+          "x-forwarded-for": "192.168.1.100",
           "content-type": "application/json",
         },
         payload: {
@@ -65,13 +65,6 @@ describe("Testes de Proteção contra Brute Force (Fastify - app.inject)", () =>
 
     const responses = await Promise.all(promises);
     const rateLimited = responses.filter((r) => r.statusCode === 429);
-
-    console.log(`Total de requisições: ${responses.length}`);
-    console.log(`Total bloqueado: ${rateLimited.length}`);
-    console.log(
-      `Status codes:`,
-      responses.map((r) => r.statusCode),
-    );
 
     // Deve ter limitado pelo menos algumas requisições
     expect(rateLimited.length).toBeGreaterThan(0);

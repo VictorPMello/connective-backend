@@ -56,7 +56,7 @@ export async function buildApp() {
   // LIMIT RATE
   await app.register(fastifyRateLimit, {
     global: true,
-    max: 10,
+    max: 200,
     timeWindow: 60000,
     continueExceeding: false,
     cache: 10000,

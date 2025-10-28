@@ -1,5 +1,7 @@
 import { test, expect, beforeAll, afterAll } from "vitest";
-import { build } from "../helper.ts";
+import { build, cleanDatabase } from "../helper.ts";
+
+import { prisma } from "../../src/config/database.ts";
 
 describe("SQL Injection Tests", () => {
   let app: any;
@@ -7,6 +9,7 @@ describe("SQL Injection Tests", () => {
 
   beforeAll(async () => {
     app = await build();
+    await cleanDatabase();
 
     // Criar usuário de teste e pegar token
     const response = await app.inject({
@@ -23,6 +26,8 @@ describe("SQL Injection Tests", () => {
   });
 
   afterAll(async () => {
+    await cleanDatabase();
+    await prisma.$disconnect();
     await app.close();
   });
 

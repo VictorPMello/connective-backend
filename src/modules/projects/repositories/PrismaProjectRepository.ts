@@ -30,6 +30,13 @@ export class PrismaProjectRepository implements IProjectRepository {
     return project;
   }
 
+  async findAll(accountId: string): Promise<Project[]> {
+    const projects = await this.prisma.project.findMany({
+      where: { accountId },
+    });
+    return projects;
+  }
+
   async update(id: string, data: UpdateProjectData): Promise<Project> {
     const project = await this.prisma.project.update({
       where: { id },

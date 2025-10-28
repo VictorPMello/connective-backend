@@ -64,6 +64,18 @@ export class ProjectController {
     });
   }
 
+  async getAll(request: FastifyRequest, reply: FastifyReply) {
+    const paramsSchema = z.object({ accountId: z.string().uuid() });
+    const { accountId } = paramsSchema.parse(request.params);
+
+    const projects = await this.getProjectService.getProjectById(accountId);
+
+    return reply.status(200).send({
+      success: true,
+      data: projects,
+    });
+  }
+
   // UPDATE
 
   async update(request: FastifyRequest, reply: FastifyReply) {

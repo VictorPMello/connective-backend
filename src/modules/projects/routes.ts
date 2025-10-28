@@ -33,6 +33,12 @@ export async function projectRoutes(app: FastifyInstance) {
     projectController.getById(request, reply),
   );
 
+  app.get(
+    "/projects/:accountId",
+    { preHandler: [authMiddleware] },
+    (request, reply) => projectController.getAll(request, reply),
+  );
+
   app.put("/project/:id", { preHandler: [authMiddleware] }, (request, reply) =>
     projectController.update(request, reply),
   );
