@@ -1,0 +1,44 @@
+# Node
+node_modules
+package-lock.json
+
+# TypeScript
+*.tsbuildinfo
+dist
+
+# Testes
+tests
+*.test.ts
+*.spec.ts
+coverage
+.vitest
+
+# Arquivos HTTP (desenvolvimento)
+http
+*.http
+
+# Seeds (dados de teste)
+**/seed.ts
+prisma/seed.ts
+
+# Git
+.git
+.gitignore
+.github
+
+# Ambiente
+.env
+.env.local
+.env.*.local
+
+# Documentação
+README.md
+CHANGELOG.md
+docs
+
+# CI/CD
+.github
+docker-compose.yml
+
+# Misc
+*.log
