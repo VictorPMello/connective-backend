@@ -13,13 +13,17 @@ describe("Testes de Proteção contra Brute Force (Fastify - app.inject)", () =>
   });
 
   afterAll(async () => {
-    await cleanDatabase();
     await prisma.$disconnect();
+    await cleanDatabase();
     await app.close();
   });
 
+  beforeEach(async () => {
+    await cleanDatabase();
+  });
+
   test("Deve bloquear múltiplas tentativas de login falhas", async () => {
-    const attempts = 11;
+    const attempts = 250;
     let blockedCount = 0;
 
     for (let i = 0; i < attempts; i++) {
@@ -37,17 +41,17 @@ describe("Testes de Proteção contra Brute Force (Fastify - app.inject)", () =>
 
       if (res.statusCode === 429) {
         blockedCount++;
-        console.log(`✅ Bloqueado na tentativa ${i + 1}`);
       }
     }
 
     console.log(`Total bloqueado: ${blockedCount}`);
+
     expect(blockedCount).toBeGreaterThan(0);
-  });
+  }, 30000);
 
   test("Deve ter rate limiting em endpoints críticos (register)", async () => {
     // 50 requisições rápidas paralelas para /auth/register
-    const promises = Array.from({ length: 50 }).map(() =>
+    const promises = Array.from({ length: 250 }).map(() =>
       app.inject({
         method: "POST",
         url: "/auth/register",

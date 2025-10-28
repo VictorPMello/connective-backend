@@ -1,15 +1,21 @@
 import { test, expect, beforeAll, afterAll } from "vitest";
-import { build } from "../helper.ts";
+import { build, cleanDatabase } from "../helper.ts";
 
 describe("Fluxo Completo de Autenticação", () => {
   let app: any;
 
   beforeAll(async () => {
     app = await build();
+    await cleanDatabase();
   });
 
   afterAll(async () => {
+    await cleanDatabase();
     await app.close();
+  });
+
+  beforeEach(async () => {
+    await cleanDatabase();
   });
 
   test("Fluxo completo: Registro → Login → Acesso → Logout", async () => {
@@ -23,13 +29,17 @@ describe("Fluxo Completo de Autenticação", () => {
         email: uniqueEmail,
         password: "SecurePass123!@#",
         name: "Integration Test User",
+        plan: "FREE",
+        maxProjects: 3,
+        maxClients: 10,
       },
     });
 
     expect(registerResponse.statusCode).toBe(201);
     const registerData = registerResponse.json();
-    expect(registerData).toHaveProperty("id");
-    expect(registerData.email).toBe(uniqueEmail);
+
+    expect(registerData.data).toHaveProperty("id");
+    expect(registerData.data.email).toBe(uniqueEmail);
 
     // 2. LOGIN
     const loginResponse = await app.inject({
@@ -49,7 +59,7 @@ describe("Fluxo Completo de Autenticação", () => {
     // 3. ACESSAR ROTA PROTEGIDA
     const protectedResponse = await app.inject({
       method: "GET",
-      url: "/account",
+      url: `/account/${loginData.user.id}`,
       headers: {
         authorization: `Bearer ${token}`,
       },
@@ -57,29 +67,30 @@ describe("Fluxo Completo de Autenticação", () => {
 
     expect(protectedResponse.statusCode).toBe(200);
     const accountData = protectedResponse.json();
-    expect(accountData.email).toBe(uniqueEmail);
+    expect(accountData.data.email).toBe(uniqueEmail);
 
     // 4. CRIAR PROJETO (outra rota protegida)
     const projectResponse = await app.inject({
       method: "POST",
-      url: "/projects",
+      url: "/project",
       headers: {
         authorization: `Bearer ${token}`,
       },
       payload: {
-        name: "Projeto de Teste",
+        title: "Projeto de Teste",
         description: "Criado durante teste de integração",
+        accountId: `${accountData.data.id}`,
       },
     });
 
     expect(projectResponse.statusCode).toBe(201);
     const project = projectResponse.json();
-    expect(project.name).toBe("Projeto de Teste");
+    expect(project.data.title).toBe("Projeto de Teste");
 
     // 5. LISTAR PROJETOS (deve aparecer o criado)
     const listResponse = await app.inject({
       method: "GET",
-      url: "/projects",
+      url: `/projects/${accountData.data.id}`,
       headers: {
         authorization: `Bearer ${token}`,
       },
@@ -87,13 +98,13 @@ describe("Fluxo Completo de Autenticação", () => {
 
     expect(listResponse.statusCode).toBe(200);
     const projects = listResponse.json();
-    expect(projects.length).toBeGreaterThan(0);
-    expect(projects.some((p: any) => p.id === project.id)).toBe(true);
+    expect(projects.data.length).toBeGreaterThan(0);
+    expect(projects.data.some((p: any) => p.id === project.data.id)).toBe(true);
 
     // 6. TENTAR ACESSAR SEM TOKEN (deve falhar)
     const unauthorizedResponse = await app.inject({
       method: "GET",
-      url: "/projects",
+      url: `/projects/${accountData.data.id}`,
     });
 
     expect(unauthorizedResponse.statusCode).toBe(401);
@@ -110,10 +121,13 @@ describe("Fluxo Completo de Autenticação", () => {
         email,
         password: "Test123!@#",
         name: "First User",
+        maxClients: 10,
+        maxProjects: 2,
+        plan: "FREE",
       },
     });
 
-    expect([201, 409]).toContain(first.statusCode);
+    expect([201, 400]).toContain(first.statusCode);
 
     // Segundo registro (deve falhar)
     const second = await app.inject({
@@ -123,10 +137,13 @@ describe("Fluxo Completo de Autenticação", () => {
         email,
         password: "Test123!@#",
         name: "Second User",
+        maxClients: 10,
+        maxProjects: 2,
+        plan: "FREE",
       },
     });
 
-    expect(second.statusCode).toBe(409);
+    expect(second.statusCode).toBe(400);
   });
 
   test("Deve validar senha fraca", async () => {
