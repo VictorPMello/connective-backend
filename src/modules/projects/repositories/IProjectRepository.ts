@@ -18,6 +18,7 @@ export interface IProjectRepository {
   create(data: CreateProjectData): Promise<Project>;
 
   findById(id: string): Promise<Project | null>;
+  findAll(accountId: string): Promise<Project[]>;
 
   update(id: string, data: UpdateProjectData): Promise<Project>;
 

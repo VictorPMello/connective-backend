@@ -14,6 +14,13 @@ export async function errorHandler(
     });
   }
 
+  if (error.statusCode === 429 || error.message === "Invalid credentials") {
+    return reply.status(429).send({
+      success: false,
+      message: error.message || "Too many requests",
+    });
+  }
+
   if (error instanceof Error) {
     return reply.status(400).send({
       success: false,

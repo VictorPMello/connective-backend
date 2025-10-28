@@ -11,4 +11,9 @@ export class GetProjectService {
     const project = await this.projectRepository.findById(id);
     return project;
   }
+
+  async getAllProjects(accountId: string): Promise<Project[]> {
+    const projects = await this.projectRepository.findAll(accountId);
+    return projects;
+  }
 }

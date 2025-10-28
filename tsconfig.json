@@ -2,7 +2,8 @@
   "compilerOptions": {
     "module": "nodenext",
     "target": "esnext",
-    "types": [],
+    "types": ["vitest/globals"],
+    "moduleResolution": "nodenext",
 
     "noEmit": true,
     "allowImportingTsExtensions": true,

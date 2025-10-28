@@ -8,6 +8,8 @@ import { GetClientService } from "./services/GetClientService.ts";
 import { UpdateClientService } from "./services/UpdateClientService.ts";
 import { DeleteClientService } from "./services/DeleteClientService.ts";
 
+import { authMiddleware } from "../../middlewares/authMiddleware.ts";
+
 export async function clientRoutes(app: FastifyInstance) {
   const clientRepository = new PrismaClientRepository(prisma);
 
@@ -23,23 +25,27 @@ export async function clientRoutes(app: FastifyInstance) {
     deleteClientService,
   );
 
-  app.post("/client", (request, reply) =>
+  app.post("/client", { preHandler: [authMiddleware] }, (request, reply) =>
     clientController.create(request, reply),
   );
 
-  app.get("/client/:id", (request, reply) =>
+  app.get("/client/:id", { preHandler: [authMiddleware] }, (request, reply) =>
     clientController.getById(request, reply),
   );
 
-  app.get("/clients/:accountId", (request, reply) =>
-    clientController.getAllClients(request, reply),
+  app.get(
+    "/clients/:accountId",
+    { preHandler: [authMiddleware] },
+    (request, reply) => clientController.getAllClients(request, reply),
   );
 
-  app.put("/client/:id", (request, reply) =>
+  app.put("/client/:id", { preHandler: [authMiddleware] }, (request, reply) =>
     clientController.update(request, reply),
   );
 
-  app.delete("/client/:id", (request, reply) =>
-    clientController.delete(request, reply),
+  app.delete(
+    "/client/:id",
+    { preHandler: [authMiddleware] },
+    (request, reply) => clientController.delete(request, reply),
   );
 }
