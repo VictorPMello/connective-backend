@@ -12,14 +12,14 @@ import {
   type ZodTypeProvider,
 } from "fastify-type-provider-zod";
 
-import { env } from "./config/env.ts";
-import { errorHandler } from "./middlewares/errorHandler.ts";
+import { env } from "./config/env";
+import { errorHandler } from "./middlewares/errorHandler";
 
-import { authRoutes } from "./modules/account/authRoutes.ts";
-import { accountRoutes } from "./modules/account/routes.ts";
-import { taskRoutes } from "./modules/tasks/routes.ts";
-import { projectRoutes } from "./modules/projects/routes.ts";
-import { clientRoutes } from "./modules/clients/routes.ts";
+import { authRoutes } from "./modules/account/authRoutes";
+import { accountRoutes } from "./modules/account/routes";
+import { taskRoutes } from "./modules/tasks/routes";
+import { projectRoutes } from "./modules/projects/routes";
+import { clientRoutes } from "./modules/clients/routes";
 
 export async function buildApp() {
   const app = fastify().withTypeProvider<ZodTypeProvider>();
