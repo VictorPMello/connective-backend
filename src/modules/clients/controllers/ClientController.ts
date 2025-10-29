@@ -1,10 +1,10 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 
-import { CreateClientService } from "../services/CreateClientService.ts";
-import { GetClientService } from "../services/GetClientService.ts";
-import { UpdateClientService } from "../services/UpdateClientService.ts";
-import { DeleteClientService } from "../services/DeleteClientService.ts";
+import { CreateClientService } from "../services/CreateClientService";
+import { GetClientService } from "../services/GetClientService";
+import { UpdateClientService } from "../services/UpdateClientService";
+import { DeleteClientService } from "../services/DeleteClientService";
 
 export class ClientController {
   private createClientService: CreateClientService;

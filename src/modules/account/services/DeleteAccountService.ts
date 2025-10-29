@@ -1,4 +1,4 @@
-import type { IAccountRepository } from "../repositories/IAccountRepository.ts";
+import type { IAccountRepository } from "../repositories/IAccountRepository";
 
 export class DeleteAccountService {
   private accountRepository: IAccountRepository;

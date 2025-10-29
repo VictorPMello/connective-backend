@@ -1,6 +1,6 @@
-import type { Task } from "../dtos/task.types.ts";
-import type { UpdateTaskDTO } from "../dtos/updateTaskDTO.ts";
-import type { ITaskRepository } from "../repositories/ITaskRepository.ts";
+import type { Task } from "../dtos/task.types";
+import type { UpdateTaskDTO } from "../dtos/updateTaskDTO";
+import type { ITaskRepository } from "../repositories/ITaskRepository";
 
 export class UpdateTaskService {
   private taskRepository: ITaskRepository;

@@ -1,10 +1,10 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 
-import { CreateTaskService } from "../services/CreateTaskService.ts";
-import type { GetTaskService } from "../services/GetTaskService.ts";
-import type { UpdateTaskService } from "../services/UpdateTaskService.ts";
-import type { DeleteTaskService } from "../services/DeleteTaskService.ts";
+import { CreateTaskService } from "../services/CreateTaskService";
+import type { GetTaskService } from "../services/GetTaskService";
+import type { UpdateTaskService } from "../services/UpdateTaskService";
+import type { DeleteTaskService } from "../services/DeleteTaskService";
 
 export class TaskController {
   private createTaskService: CreateTaskService;

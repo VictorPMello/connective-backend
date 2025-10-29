@@ -1,14 +1,14 @@
 import type { FastifyInstance } from "fastify";
-import { prisma } from "../../config/database.ts";
+import { prisma } from "../../config/database";
 
-import { PrismaProjectRepository } from "./repositories/PrismaProjectRepository.ts";
-import { ProjectController } from "./controllers/ProjectController.ts";
-import { CreateProjectService } from "./services/CreateProjectService.ts";
-import { GetProjectService } from "./services/GetProjectService.ts";
-import { UpdateProjectService } from "./services/UpdateProjectService.ts";
-import { DeleteProjectService } from "./services/DeleteProjectService.ts";
+import { PrismaProjectRepository } from "./repositories/PrismaProjectRepository";
+import { ProjectController } from "./controllers/ProjectController";
+import { CreateProjectService } from "./services/CreateProjectService";
+import { GetProjectService } from "./services/GetProjectService";
+import { UpdateProjectService } from "./services/UpdateProjectService";
+import { DeleteProjectService } from "./services/DeleteProjectService";
 
-import { authMiddleware } from "../../middlewares/authMiddleware.ts";
+import { authMiddleware } from "../../middlewares/authMiddleware";
 
 export async function projectRoutes(app: FastifyInstance) {
   const projectRepository = new PrismaProjectRepository(prisma);
@@ -34,7 +34,7 @@ export async function projectRoutes(app: FastifyInstance) {
   );
 
   app.get(
-    "/projects/:accountId",
+    "/projec/:accountId",
     { preHandler: [authMiddleware] },
     (request, reply) => projectController.getAll(request, reply),
   );

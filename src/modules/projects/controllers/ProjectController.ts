@@ -1,10 +1,10 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 
-import { CreateProjectService } from "../services/CreateProjectService.ts";
-import { GetProjectService } from "../services/GetProjectService.ts";
-import { UpdateProjectService } from "../services/UpdateProjectService.ts";
-import { DeleteProjectService } from "../services/DeleteProjectService.ts";
+import { CreateProjectService } from "../services/CreateProjectService";
+import { GetProjectService } from "../services/GetProjectService";
+import { UpdateProjectService } from "../services/UpdateProjectService";
+import { DeleteProjectService } from "../services/DeleteProjectService";
 
 export class ProjectController {
   private createProjectService: CreateProjectService;

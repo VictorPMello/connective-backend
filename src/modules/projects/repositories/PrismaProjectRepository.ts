@@ -5,7 +5,7 @@ import type {
   CreateProjectData,
   UpdateProjectData,
   IProjectRepository,
-} from "./IProjectRepository.ts";
+} from "./IProjectRepository";
 
 export class PrismaProjectRepository implements IProjectRepository {
   private prisma: PrismaClient;

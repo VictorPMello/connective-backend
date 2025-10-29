@@ -1,14 +1,14 @@
 import type { FastifyInstance } from "fastify";
-import { prisma } from "../../config/database.ts";
+import { prisma } from "../../config/database";
 
-import { PrismaClientRepository } from "./repositories/PrismaClientRepository.ts";
-import { ClientController } from "./controllers/ClientController.ts";
-import { CreateClientService } from "./services/CreateClientService.ts";
-import { GetClientService } from "./services/GetClientService.ts";
-import { UpdateClientService } from "./services/UpdateClientService.ts";
-import { DeleteClientService } from "./services/DeleteClientService.ts";
+import { PrismaClientRepository } from "./repositories/PrismaClientRepository";
+import { ClientController } from "./controllers/ClientController";
+import { CreateClientService } from "./services/CreateClientService";
+import { GetClientService } from "./services/GetClientService";
+import { UpdateClientService } from "./services/UpdateClientService";
+import { DeleteClientService } from "./services/DeleteClientService";
 
-import { authMiddleware } from "../../middlewares/authMiddleware.ts";
+import { authMiddleware } from "../../middlewares/authMiddleware";
 
 export async function clientRoutes(app: FastifyInstance) {
   const clientRepository = new PrismaClientRepository(prisma);
@@ -34,7 +34,7 @@ export async function clientRoutes(app: FastifyInstance) {
   );
 
   app.get(
-    "/clients/:accountId",
+    "/clien/:accountId",
     { preHandler: [authMiddleware] },
     (request, reply) => clientController.getAllClients(request, reply),
   );

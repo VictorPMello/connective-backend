@@ -1,10 +1,10 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 
-import type { CreateAccountService } from "../services/CreateAccountService.ts";
-import type { GetAccountService } from "../services/GetAccountService.ts";
-import type { UpdateAccountService } from "../services/UpdateAccountService.ts";
-import type { DeleteAccountService } from "../services/DeleteAccountService.ts";
+import type { CreateAccountService } from "../services/CreateAccountService";
+import type { GetAccountService } from "../services/GetAccountService";
+import type { UpdateAccountService } from "../services/UpdateAccountService";
+import type { DeleteAccountService } from "../services/DeleteAccountService";
 
 export class AccountController {
   private createAccountService: CreateAccountService;

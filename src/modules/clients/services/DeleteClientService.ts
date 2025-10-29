@@ -1,4 +1,4 @@
-import type { IClientRepository } from "../repositories/ICLientRepository.ts";
+import type { IClientRepository } from "../repositories/ICLientRepository";
 
 export class DeleteClientService {
   private clientRepository: IClientRepository;

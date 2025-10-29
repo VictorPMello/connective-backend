@@ -1,6 +1,6 @@
-import type { Client } from "../dtos/client.types.ts";
-import type { UpdateClientDTO } from "../dtos/UpdateClientDTO.ts";
-import type { IClientRepository } from "../repositories/ICLientRepository.ts";
+import type { Client } from "../dtos/client.types";
+import type { UpdateClientDTO } from "../dtos/UpdateClientDTO";
+import type { IClientRepository } from "../repositories/ICLientRepository";
 
 export class UpdateClientService {
   private clientRepository: IClientRepository;

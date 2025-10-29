@@ -3,7 +3,7 @@ import type {
   ClientStatus,
   PaymentMethod,
 } from "@prisma/client";
-import type { AddressInput } from "./client.types.ts";
+import type { AddressInput } from "./client.types";
 
 export interface UpdateClientDTO {
   name?: string | undefined;

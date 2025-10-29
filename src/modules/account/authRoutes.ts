@@ -1,10 +1,10 @@
 import type { FastifyInstance } from "fastify";
-import { prisma } from "../../config/database.ts";
+import { prisma } from "../../config/database";
 
-import { PrismaAccountRepository } from "./repositories/PrismaAccountRepository.ts";
-import { LoginService } from "./services/LoginService.ts";
-import { AuthController } from "./controllers/AuthController.ts";
-import { authMiddleware } from "../../middlewares/authMiddleware.ts";
+import { PrismaAccountRepository } from "./repositories/PrismaAccountRepository";
+import { LoginService } from "./services/LoginService";
+import { AuthController } from "./controllers/AuthController";
+import { authMiddleware } from "../../middlewares/authMiddleware";
 
 export async function authRoutes(app: FastifyInstance) {
   const accountRepository = new PrismaAccountRepository(prisma);

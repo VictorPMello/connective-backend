@@ -1,5 +1,5 @@
 import { test, expect, beforeAll, afterAll } from "vitest";
-import { build, cleanDatabase } from "../helper.ts";
+import { build, cleanDatabase } from "../helper";
 
 describe("Fluxo Completo de Autenticação", () => {
   let app: any;

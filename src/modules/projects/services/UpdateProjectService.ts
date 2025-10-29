@@ -1,6 +1,6 @@
-import type { Project } from "../dtos/project.types.ts";
-import type { UpdateProjectDTO } from "../dtos/updateProjectDTO.ts";
-import type { IProjectRepository } from "../repositories/IProjectRepository.ts";
+import type { Project } from "../dtos/project.types";
+import type { UpdateProjectDTO } from "../dtos/updateProjectDTO";
+import type { IProjectRepository } from "../repositories/IProjectRepository";
 
 export class UpdateProjectService {
   private projectRepository: IProjectRepository;

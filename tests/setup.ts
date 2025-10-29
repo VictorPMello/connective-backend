@@ -1,5 +1,5 @@
 import { beforeAll, afterAll } from "vitest";
-import { prisma } from "../src/config/database.ts"; // ajuste conforme o caminho real
+import { prisma } from "../src/config/database";
 
 beforeAll(async () => {
   // qualquer configuração necessária antes dos testes

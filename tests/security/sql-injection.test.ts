@@ -1,5 +1,5 @@
 import { test, expect, beforeAll, afterAll } from "vitest";
-import { build, cleanDatabase, seedTestData } from "../helper.ts";
+import { build, cleanDatabase, seedTestData } from "../helper";
 
 import { prisma } from "../../src/config/database.ts";
 

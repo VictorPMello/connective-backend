@@ -1,4 +1,4 @@
-import type { IProjectRepository } from "../repositories/IProjectRepository.ts";
+import type { IProjectRepository } from "../repositories/IProjectRepository";
 
 export class DeleteProjectService {
   private projectRepository: IProjectRepository;

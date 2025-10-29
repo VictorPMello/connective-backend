@@ -5,7 +5,7 @@ import type {
   CreateClientData,
   UpdateClientData,
   IClientRepository,
-} from "./ICLientRepository.ts";
+} from "./ICLientRepository";
 
 export class PrismaClientRepository implements IClientRepository {
   private prisma: PrismaClient;

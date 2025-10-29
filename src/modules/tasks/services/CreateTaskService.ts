@@ -1,6 +1,6 @@
-import type { Task } from "../dtos/task.types.ts";
-import type { CreateTaskDTO } from "../dtos/createTaskDTO.ts";
-import type { ITaskRepository } from "../repositories/ITaskRepository.ts";
+import type { Task } from "../dtos/task.types";
+import type { CreateTaskDTO } from "../dtos/createTaskDTO";
+import type { ITaskRepository } from "../repositories/ITaskRepository";
 
 export class CreateTaskService {
   private taskRepository: ITaskRepository;

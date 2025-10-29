@@ -1,8 +1,8 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 
-import type { LoginService } from "../services/LoginService.ts";
-import { env } from "../../../config/env.ts";
+import type { LoginService } from "../services/LoginService";
+import { env } from "../../../config/env";
 
 export class AuthController {
   private loginService: LoginService;

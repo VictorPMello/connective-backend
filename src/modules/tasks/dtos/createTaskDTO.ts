@@ -1,4 +1,4 @@
-import type { Priority, Status } from "./task.types.ts";
+import type { Priority, Status } from "./task.types";
 
 export interface CreateTaskDTO {
   projectId: string;

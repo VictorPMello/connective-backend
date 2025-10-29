@@ -5,7 +5,7 @@ import type {
   PaymentMethod,
   Address,
 } from "@prisma/client";
-import type { AddressInput } from "../dtos/client.types.ts";
+import type { AddressInput } from "../dtos/client.types";
 
 export type { Client, ClientStatus, ClientCategory, Address };
 

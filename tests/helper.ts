@@ -1,7 +1,7 @@
-import { prisma } from "../src/config/database.ts";
-import { buildApp } from "../src/app.ts";
-import { PasswordHelper } from "../src/helpers/password.helper.ts";
-import { env } from "../src/config/env.ts";
+import { prisma } from "../src/config/database";
+import { buildApp } from "../src/app";
+import { PasswordHelper } from "../src/helpers/password.helper";
+import { env } from "../src/config/env";
 import jwt from "jsonwebtoken";
 
 export async function build() {

@@ -1,8 +1,8 @@
-import type { Account } from "../dtos/account.types.ts";
-import type { CreateAccountDTO } from "../dtos/createAccountDTO.ts";
-import type { IAccountRepository } from "../repositories/IAccountRepository.ts";
+import type { Account } from "../dtos/account.types";
+import type { CreateAccountDTO } from "../dtos/createAccountDTO";
+import type { IAccountRepository } from "../repositories/IAccountRepository";
 
-import { PasswordHelper } from "../../../helpers/password.helper.ts";
+import { PasswordHelper } from "../../../helpers/password.helper";
 
 export class CreateAccountService {
   private accountRepository: IAccountRepository;

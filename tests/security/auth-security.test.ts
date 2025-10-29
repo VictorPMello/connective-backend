@@ -4,9 +4,9 @@ import {
   cleanDatabase,
   seedTestData,
   generateTestToken,
-} from "../helper.ts";
+} from "../helper";
 
-import { prisma } from "../../src/config/database.ts";
+import { prisma } from "../../src/config/database";
 
 describe("Testes de Segurança de Autenticação", () => {
   let app: any;

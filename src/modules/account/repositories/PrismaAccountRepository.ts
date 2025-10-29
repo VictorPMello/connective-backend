@@ -5,7 +5,7 @@ import type {
   CreateAccountData,
   UpdateAccountData,
   FindAccountsFilters,
-} from "./IAccountRepository.ts";
+} from "./IAccountRepository";
 
 export class PrismaAccountRepository implements IAccountRepository {
   private prisma: PrismaClient;

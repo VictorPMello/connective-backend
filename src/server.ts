@@ -1,5 +1,5 @@
-import { buildApp } from "./app.ts";
-import { env } from "./config/env.ts";
+import { buildApp } from "./app";
+import { env } from "./config/env";
 
 const signals = ["SIGINT", "SIGTERM"];
 

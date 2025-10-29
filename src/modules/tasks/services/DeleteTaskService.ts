@@ -1,4 +1,4 @@
-import type { ITaskRepository } from "../repositories/ITaskRepository.ts";
+import type { ITaskRepository } from "../repositories/ITaskRepository";
 
 export class DeleteTaskService {
   private taskRepository: ITaskRepository;

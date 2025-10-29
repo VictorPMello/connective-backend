@@ -1,5 +1,5 @@
-import type { Account } from "../dtos/account.types.ts";
-import type { IAccountRepository } from "../repositories/IAccountRepository.ts";
+import type { Account } from "../dtos/account.types";
+import type { IAccountRepository } from "../repositories/IAccountRepository";
 
 export class GetAccountService {
   private accountRepository: IAccountRepository;
