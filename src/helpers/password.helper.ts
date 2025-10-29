@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcrypt"; // teste
 
 const SALT_ROUNDS = 10;
 
