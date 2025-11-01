@@ -50,6 +50,8 @@ export async function buildApp() {
   await app.register(fastifyCors, {
     origin: env.CORS_ORIGIN,
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   });
 
   // LIMIT RATE
