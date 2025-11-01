@@ -34,7 +34,7 @@ export async function clientRoutes(app: FastifyInstance) {
   );
 
   app.get(
-    "/clien/:accountId",
+    "/clients/:accountId",
     { preHandler: [authMiddleware] },
     (request, reply) => clientController.getAllClients(request, reply),
   );

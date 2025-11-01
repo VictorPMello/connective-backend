@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node dist/server.js",
-    "dev": "node --env-file .env --no-warnings --watch src/server.ts",
+    "dev": "tsx watch --env-file .env src/server.ts",
     "build": "tsc",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
