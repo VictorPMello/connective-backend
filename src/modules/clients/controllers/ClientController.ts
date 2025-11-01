@@ -37,6 +37,7 @@ export class ClientController {
 
       status: z.enum(["ACTIVE", "NEGOTIATION", "INACTIVE", "PROSPECTUS"]),
       category: z.enum(["BASIC", "PREMIUM", "ENTERPRISE"]),
+      hiringDate: z.coerce.date().optional(),
     });
 
     const data = createClientSchema.parse(request.body);
