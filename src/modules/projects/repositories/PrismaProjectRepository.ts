@@ -35,6 +35,7 @@ export class PrismaProjectRepository implements IProjectRepository {
       where: { accountId },
       include: { tasks: true },
     });
+
     return projects;
   }
 
