@@ -25,6 +25,8 @@ export class CreateClientService {
       hiringDate: data.hiringDate,
     });
 
-    return response;
+    const { accountId, ...clientWithoutAccountId } = response;
+
+    return clientWithoutAccountId;
   }
 }

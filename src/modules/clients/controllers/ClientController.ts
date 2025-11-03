@@ -28,7 +28,6 @@ export class ClientController {
 
   async create(request: FastifyRequest, reply: FastifyReply) {
     const createClientSchema = z.object({
-      accountId: z.string(),
       name: z.string(),
       contactPerson: z.string(),
       email: z.string(),
@@ -40,9 +39,12 @@ export class ClientController {
       hiringDate: z.coerce.date().optional(),
     });
 
+    const accountId = request.userId as string;
+
     const data = createClientSchema.parse(request.body);
     const newCLient = await this.createClientService.createClient({
       ...data,
+      accountId,
       hiringDate: new Date(),
     });
 
@@ -52,6 +54,7 @@ export class ClientController {
       data: newCLient,
     });
   }
+
   // GET
 
   async getById(request: FastifyRequest, reply: FastifyReply) {

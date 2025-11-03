@@ -30,11 +30,15 @@ export class ProjectController {
     const createProjectSchema = z.object({
       title: z.string(),
       description: z.string(),
-      accountId: z.string(),
     });
 
+    const accountId = request.userId as string;
+
     const data = createProjectSchema.parse(request.body);
-    const newProject = await this.createProjectService.createProject(data);
+    const newProject = await this.createProjectService.createProject({
+      ...data,
+      accountId,
+    });
 
     return reply.status(201).send({
       success: true,

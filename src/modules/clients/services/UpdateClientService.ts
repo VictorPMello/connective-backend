@@ -13,6 +13,8 @@ export class UpdateClientService {
     if (!clientExists) throw new Error("Client not Exists!");
 
     const client = await this.clientRepository.update(id, data);
-    return client;
+    const { accountId, ...clientWithoutAccountId } = client;
+
+    return clientWithoutAccountId;
   }
 }
