@@ -14,6 +14,10 @@ export class GetProjectService {
 
   async getAllProjects(accountId: string): Promise<Project[]> {
     const projects = await this.projectRepository.findAll(accountId);
-    return projects;
+
+    return projects.map((project) => {
+      const { accountId, ...projectWithoutAccountId } = project;
+      return projectWithoutAccountId;
+    });
   }
 }

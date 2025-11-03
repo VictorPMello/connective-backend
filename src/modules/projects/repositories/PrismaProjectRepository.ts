@@ -33,6 +33,7 @@ export class PrismaProjectRepository implements IProjectRepository {
   async findAll(accountId: string): Promise<Project[]> {
     const projects = await this.prisma.project.findMany({
       where: { accountId },
+      include: { tasks: true },
     });
     return projects;
   }
