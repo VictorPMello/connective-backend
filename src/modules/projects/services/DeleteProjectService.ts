@@ -9,4 +9,8 @@ export class DeleteProjectService {
   async deleteProject(id: string): Promise<void> {
     await this.projectRepository.delete(id);
   }
+
+  async deleteAllProjects(accountId: string): Promise<void> {
+    await this.projectRepository.deleteAllProjects(accountId);
+  }
 }

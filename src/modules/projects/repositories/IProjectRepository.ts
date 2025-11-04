@@ -23,4 +23,5 @@ export interface IProjectRepository {
   update(id: string, data: UpdateProjectData): Promise<Project>;
 
   delete(id: string): Promise<void>;
+  deleteAllProjects(accountId: string): Promise<void>;
 }

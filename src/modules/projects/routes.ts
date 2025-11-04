@@ -48,4 +48,8 @@ export async function projectRoutes(app: FastifyInstance) {
     { preHandler: [authMiddleware] },
     (request, reply) => projectController.delete(request, reply),
   );
+
+  app.delete("/projects", { preHandler: [authMiddleware] }, (request, reply) =>
+    projectController.deleteAllProjects(request, reply),
+  );
 }

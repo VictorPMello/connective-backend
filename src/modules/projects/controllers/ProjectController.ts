@@ -74,12 +74,6 @@ export class ProjectController {
 
     const projects = await this.getProjectService.getAllProjects(accountId);
 
-    if (projects.length === 0)
-      return reply.status(404).send({
-        success: false,
-        message: "Projects not found",
-      });
-
     return reply.status(200).send({
       success: true,
       data: projects,
@@ -122,6 +116,17 @@ export class ProjectController {
     return reply.status(200).send({
       success: true,
       message: "Project deleted successfully",
+    });
+  }
+
+  async deleteAllProjects(request: FastifyRequest, reply: FastifyReply) {
+    const accountId = request.userId as string;
+
+    await this.deleteProjectService.deleteAllProjects(accountId);
+
+    return reply.status(200).send({
+      success: true,
+      message: "All Projects deleted successfully",
     });
   }
 }
