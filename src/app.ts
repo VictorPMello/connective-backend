@@ -33,7 +33,12 @@ export async function buildApp() {
   // COOKIES
   await app.register(fastifyCookie, {
     secret: env.JWT_SECRET,
-    parseOptions: {},
+    parseOptions: {
+      sameSite: "none",
+      secure: true,
+      httpOnly: true,
+      path: "/",
+    },
   });
 
   // HELMET
@@ -52,6 +57,7 @@ export async function buildApp() {
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["Set-Cookie"],
   });
 
   // LIMIT RATE
