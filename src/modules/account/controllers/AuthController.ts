@@ -20,14 +20,17 @@ export class AuthController {
 
     const account = await this.loginService.login(email, password);
 
-    const token = request.server.jwt.sign({
-      id: account.id,
-      email: account.email,
-    });
+    const token = request.server.jwt.sign(
+      {
+        id: account.id,
+        email: account.email,
+      },
+      { expiresIn: "7d" },
+    );
 
     reply.setCookie("token", token, {
       httpOnly: true,
-      secure: env.NODE_ENV === "production",
+      secure: true,
       sameSite: "none",
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
