@@ -72,6 +72,12 @@ export class TaskController {
 
     const tasks = await this.getTaskService.getAllTasks(projectId);
 
+    if (tasks.length === 0)
+      return reply.status(404).send({
+        success: false,
+        message: "Tasks not found",
+      });
+
     return reply.status(200).send({
       success: true,
       data: tasks,

@@ -6,7 +6,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  schemas  = ["auth", "public"]
 }
 
 // ============================================
@@ -34,8 +33,6 @@ model Account {
 
   clients  Client[]
   projects Project[]
-
-  @@schema("auth")
 }
 
 enum PlanType {
@@ -43,8 +40,6 @@ enum PlanType {
   BASIC
   PROFESSIONAL
   ENTERPRISE
-
-  @@schema("auth")
 }
 
 // ============================================
@@ -66,7 +61,6 @@ model Project {
   updatedAt DateTime @updatedAt
 
   @@index([accountId])
-  @@schema("public")
 }
 
 model Task {
@@ -87,23 +81,18 @@ model Task {
   @@index([projectId])
   @@index([status])
   @@index([priority])
-  @@schema("public")
 }
 
 enum Status {
   TODO
   DOING
   DONE
-
-  @@schema("public")
 }
 
 enum Priority {
   LOW
   MEDIUM
   HIGH
-
-  @@schema("public")
 }
 
 // ============================================
@@ -154,7 +143,6 @@ model Client {
   @@index([category])
   @@index([email])
   @@index([manager])
-  @@schema("public")
 }
 
 enum ClientStatus {
@@ -162,16 +150,12 @@ enum ClientStatus {
   NEGOTIATION
   INACTIVE
   PROSPECTUS
-
-  @@schema("public")
 }
 
 enum ClientCategory {
   BASIC
   PREMIUM
   ENTERPRISE
-
-  @@schema("public")
 }
 
 enum PaymentMethod {
@@ -179,8 +163,6 @@ enum PaymentMethod {
   BOLETO
   PIX
   TRANSFER
-
-  @@schema("public")
 }
 
 model Address {
@@ -196,6 +178,4 @@ model Address {
   country      String?
 
   client Client?
-
-  @@schema("public")
 }

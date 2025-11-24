@@ -14,7 +14,7 @@ export async function errorHandler(
     });
   }
 
-  if (error.statusCode === 429) {
+  if (error.statusCode === 429 || error.message === "Invalid credentials") {
     return reply.status(429).send({
       success: false,
       message: error.message || "Too many requests",

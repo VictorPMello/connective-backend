@@ -1,5 +1,5 @@
 import { test, expect, beforeAll, afterAll } from "vitest";
-import { build, cleanDatabase } from "../helper.ts";
+import { build, cleanDatabase, seedTestData } from "../helper.ts";
 
 import { prisma } from "../../src/config/database.ts";
 
@@ -10,14 +10,28 @@ describe("SQL Injection Tests", () => {
   beforeAll(async () => {
     app = await build();
     await cleanDatabase();
+    await seedTestData();
+
+    await app.inject({
+      method: "POST",
+      url: "/auth/register",
+      payload: {
+        email: "teste@connective.com",
+        password: "uniqueEmail",
+        maxClients: 10,
+        maxProjects: 2,
+        name: "Victor",
+        plan: "FREE",
+      },
+    });
 
     // Criar usuário de teste e pegar token
     const response = await app.inject({
       method: "POST",
       url: "/auth/login",
       payload: {
-        email: "test@example.com",
-        password: "Test123!@#",
+        email: "teste@connective.com",
+        password: "uniqueEmail",
       },
     });
 
@@ -26,9 +40,13 @@ describe("SQL Injection Tests", () => {
   });
 
   afterAll(async () => {
-    await cleanDatabase();
     await prisma.$disconnect();
+    await cleanDatabase();
     await app.close();
+  });
+
+  beforeEach(async () => {
+    await cleanDatabase();
   });
 
   test("Deve bloquear SQL injection básico no login", async () => {
